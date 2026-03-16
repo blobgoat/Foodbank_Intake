@@ -11,11 +11,7 @@ const api = axios.create({
 
 // Clients
 export const registerClient = (clientData) => api.post('/clients', clientData);
-export const checkInClient = (clientId) => api.post(`/clients/${clientId}/checkin`);
-export const findClient = (query) => api.get('/clients/search', { params: query });
 
-// Inventory
-export const getInventory = () => api.get('/inventory');
 
 // Intake
 export const submitIntake = (intakeData) => api.post('/intake', intakeData);
