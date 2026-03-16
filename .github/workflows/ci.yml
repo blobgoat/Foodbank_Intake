@@ -1,0 +1,81 @@
+name: Client and Server Tests
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            frontend/node_modules
+            backend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Client Dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Run Client Tests
+        working-directory: ./frontend
+        run: npm run test
+
+      - name: Install Server Dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      - name: Create server/.env file
+        working-directory: ./backend
+        run: |
+          echo "PORT=3000" > .env
+          echo "AUTH0_DOMAIN=${{ secrets.AUTH0_DOMAIN }}" >> .env
+          echo "AUTH0_AUDIENCE=${{ secrets.AUTH0_AUDIENCE }}" >> .env
+          echo "AUTH0_CLIENT_ID=${{ secrets.AUTH0_CLIENT_ID }}" >> .env
+          echo "AUTH0_CALLBACK_URL=${{ secrets.AUTH0_CALLBACK_URL }}" >> .env
+          echo "AUTH0_LOGOUT_REDIRECT_URI=${{ secrets.AUTH0_LOGOUT_REDIRECT_URI }}" >> .env
+          echo "API_BASE=${{ secrets.API_BASE }}" >> .env
+          echo "API_USERNAME=${{ secrets.API_USERNAME }}" >> .env
+          echo "API_PASSWORD=${{ secrets.API_PASSWORD }}" >> .env
+          echo "LOCATION_ID=${{ secrets.LOCATION_ID }}" >> .env
+
+      - name: Debug .env contents (optional)
+        working-directory: ./server
+        run: cat .env
+
+      - name: Create service account JSON
+        run: |
+          mkdir -p env
+          echo '${{ secrets.GOOGLE_CREDENTIALS }}' > env/food-bank-connect-b725637de6a2.json
+
+      - name: Run Server Tests
+        working-directory: ./server
+        run: npm run test -- --ci
+
+      - name: Build Server
+        working-directory: ./server
+        run: npm run build
+
+      - name: Start Server
+        working-directory: ./server
+        run: |
+          nohup npm start > server.log 2>&1 &
+          sleep 10
+          kill $(lsof -t -i:3000)
