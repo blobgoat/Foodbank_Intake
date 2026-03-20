@@ -1,8 +1,8 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
 import cors from 'cors';
-import clientsRouter from './src/routes/clients';
-import inventoryRouter from './src/routes/inventory';
-import intakeRouter from './src/routes/intake';
+import clientsRouter from './src/routes/clients.js';
+import inventoryRouter from './src/routes/inventory.js';
+import intakeRouter from './src/routes/intake.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,10 +29,10 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Food Bank API server running on port ${PORT}`);
-  });
-}
+// if (import.meta.url === `file://${process.argv[1]}`) {
+app.listen(PORT, () => {
+  console.log(`Food Bank API server running on port ${PORT}`);
+});
+
 
 export default app;

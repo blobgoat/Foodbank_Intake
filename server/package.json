@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "dev": "vite",
-    "start": "vite",
+    "start": "node build/server/index.js",
     "build": "tsc -b",
     "clean": "tsc -b --clean",
     "preview": "vite preview",
@@ -15,7 +15,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@types/express": "^5.0.6",
     "cors": "^2.8.6",

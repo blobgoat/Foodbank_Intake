@@ -1,5 +1,5 @@
 import express, { type Request, type Response } from 'express';
-import { inventory } from '../data/store';
+import { inventory } from '../data/store.js';
 
 const router = express.Router();
 

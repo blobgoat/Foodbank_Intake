@@ -1,6 +1,6 @@
 import express, { Router, type Request, type Response } from 'express';
-import { clients, uuidv4 } from '../data/store';
-import { type Client } from '../../../datastructs/global_types';
+import { clients, uuidv4 } from '../data/store.js';
+import { type Client } from '../../../datastructs/global_types.js';
 
 const router: Router = express.Router();
 
