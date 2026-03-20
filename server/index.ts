@@ -1,8 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const clientsRouter = require('./src/routes/clients');
-const inventoryRouter = require('./src/routes/inventory');
-const intakeRouter = require('./src/routes/intake');
+import express, { type Request, type Response, type NextFunction } from 'express';
+import cors from 'cors';
+import clientsRouter from './src/routes/clients';
+import inventoryRouter from './src/routes/inventory';
+import intakeRouter from './src/routes/intake';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // Health check
-app.get('/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/health', (_req: Request, res: Response) => res.json({ status: 'ok' }));
 
 // API routes
 app.use('/api/clients', clientsRouter);
@@ -19,12 +19,12 @@ app.use('/api/inventory', inventoryRouter);
 app.use('/api/intake', intakeRouter);
 
 // 404 handler
-app.use((req, res) => {
+app.use((_req: Request, res: Response) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
 // Error handler
-app.use((err, req, res, next) => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Internal server error' });
 });
@@ -35,4 +35,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = app;
+export default app;

@@ -1,5 +1,5 @@
-import express, { Request, Response } from 'express';
-import { intakes, uuidv4, Intake } from '../data/store';
+import express, { type Request, type Response } from 'express';
+import { intakes, uuidv4, type Intake } from '../data/store';
 
 const router = express.Router();
 

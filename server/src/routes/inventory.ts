@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { type Request, type Response } from 'express';
 import { inventory } from '../data/store';
 
 const router = express.Router();

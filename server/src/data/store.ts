@@ -1,6 +1,6 @@
 // In-memory data store (replace with DynamoDB or RDS for production)
 import { v4 as uuidv4 } from 'uuid';
-import { Client, InventoryItem } from '../../../datastructs/global_types';
+import { type Client, type InventoryItem } from '../../../datastructs/global_types';
 
 
 type Intake = {
@@ -51,4 +51,4 @@ const intakes: Intake[] = [];
 
 
 
-export { clients, inventory, intakes, uuidv4, Intake };
+export { clients, inventory, intakes, uuidv4, type Intake };
