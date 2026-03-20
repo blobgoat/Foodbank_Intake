@@ -5,7 +5,7 @@ import inventoryRouter from './src/routes/inventory';
 import intakeRouter from './src/routes/intake';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5137;
 
 app.use(cors());
 app.use(express.json());
