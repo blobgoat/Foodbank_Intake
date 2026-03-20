@@ -1,0 +1,20 @@
+{
+    /*Read the Read me to understand the difference between these two texts
+    ***DO NOT CHANGE THE KEYS, ONLY THE VALUES***
+        -This houses text that is expected to change based on foodbank specific services
+        -Make sure to translate the text to the appropriate language in other fields, and create a git issue
+            to communicate that the base line text has changed and needs to be translated in the other language
+            files relevant to your community
+        -to turn off the lynwood custom page, specific questions or just any page, refer to the relevant json file
+        -DO NOT CHANGE THE KEYS, only the values, as the keys are what the codebase uses to pull the text, 
+            and changing them will break the codebase
+        
+        This file will progress by refering to page number, or components for reusable things like buttons
+         to avoid confusion make sure you know which pages are enabled in your code base
+
+        NOTE: single closed asterix indicates italicized text, double asterix indicates bolded text, and triple asterix indicates both
+    */
+    /* Page 1: Welcome Page */
+    //nothing expected to be unstandard here.
+    //if you are looking for how to change the foodbank name and logo, refer to foobank_aesthetics.jsonc
+}
