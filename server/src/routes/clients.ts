@@ -1,16 +1,19 @@
-const express = require('express');
-const router = express.Router();
-const { clients, uuidv4 } = require('../data/store');
+import express, { Router, type Request, type Response } from 'express';
+import { clients, uuidv4 } from '../data/store.js';
+import { type Client } from '../../../datastructs/global_types.js';
+
+const router: Router = express.Router();
 
 // POST /api/clients - Register a new client
-router.post('/', (req, res) => {
+router.post('/', (req: Request, res: Response): void => {
   const { firstName, lastName, dateOfBirth, phone, email, address, city, zipCode, householdSize, dietaryRestrictions, notes } = req.body;
 
   if (!firstName || !lastName || !dateOfBirth || !address || !city || !zipCode || !householdSize) {
-    return res.status(400).json({ error: 'Missing required fields' });
+    res.status(400).json({ error: 'Missing required fields' });
+    return;
   }
 
-  const newClient = {
+  const newClient: Client = {
     id: `CLI-${uuidv4().slice(0, 6).toUpperCase()}`,
     firstName,
     lastName,
@@ -32,10 +35,10 @@ router.post('/', (req, res) => {
 });
 
 // GET /api/clients/search - Search for clients
-router.get('/search', (req, res) => {
-  const { name, phone, id } = req.query;
+router.get('/search', (req: Request, res: Response): void => {
+  const { name, phone, id } = req.query as { name?: string; phone?: string; id?: string };
 
-  let results = [];
+  let results: Client[] = [];
 
   if (id) {
     results = clients.filter((c) => c.id.toLowerCase() === id.toLowerCase());
@@ -55,10 +58,11 @@ router.get('/search', (req, res) => {
 });
 
 // POST /api/clients/:id/checkin - Check in an existing client
-router.post('/:id/checkin', (req, res) => {
+router.post('/:id/checkin', (req: Request, res: Response): void => {
   const client = clients.find((c) => c.id === req.params.id);
   if (!client) {
-    return res.status(404).json({ error: 'Client not found' });
+    res.status(404).json({ error: 'Client not found' });
+    return;
   }
 
   const today = new Date().toISOString().slice(0, 10);
@@ -68,4 +72,4 @@ router.post('/:id/checkin', (req, res) => {
   res.json({ message: 'Check-in successful', clientId: client.id });
 });
 
-module.exports = router;
+export default router;

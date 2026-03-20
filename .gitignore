@@ -4,8 +4,8 @@ node_modules/
 .pnp.js
 
 # Build artifacts
-frontend/build/
-frontend/coverage/
+server/build/
+server/coverage/
 
 # Environment files
 .env

@@ -1,16 +1,17 @@
-const express = require('express');
+import express, { type Request, type Response } from 'express';
+import { intakes, uuidv4, type Intake } from '../data/store.js';
+
 const router = express.Router();
-const { intakes, uuidv4 } = require('../data/store');
 
 // POST /api/intake - Submit an intake record
-router.post('/', (req, res) => {
+router.post('/', (req: Request, res: Response) => {
   const { clientId, items, notes } = req.body;
 
   if (!clientId) {
     return res.status(400).json({ error: 'clientId is required' });
   }
 
-  const record = {
+  const record: Intake = {
     id: `INT-${uuidv4().slice(0, 6).toUpperCase()}`,
     clientId,
     items: items || [],
@@ -23,4 +24,4 @@ router.post('/', (req, res) => {
   res.status(201).json({ intakeId: record.id, message: 'Intake recorded successfully' });
 });
 
-module.exports = router;
+export default router;
