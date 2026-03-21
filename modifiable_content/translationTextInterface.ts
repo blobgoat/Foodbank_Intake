@@ -1,4 +1,4 @@
-export type StandardTextTranslation = {
+export interface StandardTextTranslation {
     //components
     BackButton: string;
     NextButton: string;
@@ -11,12 +11,13 @@ export type StandardTextTranslation = {
     ClientInfoSubheader: string;
 }
 
-export type MutableTextTranslation = {
+export interface MutableTextTranslation {
     //currently empty
+    empty: string;
 }
 
-export type DisabledQuestionsAndPages = {
-    welcoming_page: boolean;
+export interface DisabledQuestionsAndPages {
+    p1WelcomePage: boolean;
     //currently only one page, but this can be expanded as we add more pages and questions
 }
 
