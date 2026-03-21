@@ -9,8 +9,10 @@
     "build": "tsc -b",
     "clean": "tsc -b --clean",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:run": "vitest run"
+    "test:debug": "node --inspect-brk && npm run test",
+    "test": "npm run generate:blank-object && vitest",
+    "test:run": "vitest run",
+    "generate:blank-object": "tsx src/scripts/generateBlankObject.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +27,8 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
+    "ts-morph": "^27.0.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
