@@ -10,8 +10,8 @@
     "clean": "tsc -b --clean",
     "preview": "vite preview",
     "test:debug": "node --inspect-brk && npm run test",
-    "test": "npm run generate:blank-object && vitest",
-    "test:run": "vitest run",
+    "test:generate": "npm run generate:blank-object && vitest",
+    "test": "vitest",
     "generate:blank-object": "tsx src/scripts/generateBlankObject.ts"
   },
   "keywords": [],
@@ -22,6 +22,7 @@
     "@types/express": "^5.0.6",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "jsonc-parser": "^3.3.1",
     "uuid": "^13.0.0",
     "vitest": "^4.1.0"
   },

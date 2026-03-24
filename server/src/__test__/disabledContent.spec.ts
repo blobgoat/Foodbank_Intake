@@ -5,6 +5,7 @@ import { describe, test, expect } from 'vitest'
 import disabledContent from '../../../modifiable_content/disabled_questions_and_pages.json'
 import { DisabledQuestionsAndPages } from '../../../modifiable_content/translationTextInterface'
 import { BLANK_DISABLED_CONTENT } from '../../generated/blankDisabledContent'
+import { validateKeyNaming } from '../utils/testutils'
 
 
 
@@ -87,26 +88,19 @@ function validateDisabledContent(content: any, inter: any): void {
 
 //I want to make sure that the keys of the sturct either start with a "p#" or "c"
 
-describe('linter test, keys should start with \"p# or c', () => {
-    //actual content
-    test('dummy content (inside tests) that its keys start with \"p#\.*" or \"c.*\"', () => {
-        for (const key in dummyDisabledContent) {
-            expect(key, `${key} in dummy test content! is not a valid key,linter`).toMatch(/^(p\d+|c).*/)
-        }
-    })
-    test('checking if for the actual content that its keys should start with \"p#\.*" or \"c.*\"', () => {
-        for (const key in disabledContent) {
-            expect(key, `${key} in json file! is not a valid key,linter`).toMatch(/^((p\d+)|c).*/)
-        }
-    });
-    //interface content
-    test('checking if for the interface content that its keys should start with \"p#\.*" or \"c.*\"', () => {
-        for (const key in BLANK_DISABLED_CONTENT) {
-            expect(key, `${key} in interface! is not a valid key,linter`).toMatch(/^((p\d+)|c).*/)
-        }
-    });
 
-});
+
+describe('linter test, keys should start with "p# or c', () => {
+    test('dummy content keys start with "p#" or "c"', () => {
+        expect(() => validateKeyNaming(dummyDisabledContent, 'dummy test content')).not.toThrow()
+    })
+    test('actual content keys start with "p#" or "c"', () => {
+        expect(() => validateKeyNaming(disabledContent, 'json file')).not.toThrow()
+    })
+    test('interface content keys start with "p#" or "c"', () => {
+        expect(() => validateKeyNaming(BLANK_DISABLED_CONTENT, 'interface')).not.toThrow()
+    })
+})
 
 
 describe('actual DisabledContent valid', () => {

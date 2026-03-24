@@ -1,19 +1,19 @@
 export interface StandardTextTranslation {
     //components
-    BackButton: string;
-    NextButton: string;
-    SubmitButton: string;
-    IntakeInfoHeader: string;
+    cBackButton: string;
+    cNextButton: string;
+    cSubmitButton: string;
+    cIntakeInfoHeader: string;
 
     //page 1
-    WelcomeMessage: string;
-    ClientInfoHeader: string;
-    ClientInfoSubheader: string;
+    p1WelcomeMessage: string;
+    p1Notice: string;
+    p1Preamble: string;
 }
 
 export interface MutableTextTranslation {
     //currently empty
-    empty: string;
+    p1Placeholder: string;
 }
 
 export interface DisabledQuestionsAndPages {

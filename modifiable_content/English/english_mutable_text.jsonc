@@ -17,4 +17,5 @@
     /* Page 1: Welcome Page */
     //nothing expected to be unstandard here.
     //if you are looking for how to change the foodbank name and logo, refer to foobank_aesthetics.jsonc
+    "p1Placeholder": "Field is here for setting up dev environment, When this is gone, there is a check to ensure the fields arent empty"
 }
