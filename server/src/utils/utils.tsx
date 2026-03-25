@@ -3,10 +3,7 @@ import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generate
 import React from "react";
 import { format } from "jsonc-parser";
 
-// utility file that contains helper functions for the client
-export function demo_sum(a: number, b: number) {
-  return a + b
-}
+
 
 /**
  * This function takes a raw string with potential formatting and return a HTML string.
