@@ -1,7 +1,6 @@
 import { JSX } from "react";
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json'
 import React from "react";
-import { format } from "jsonc-parser";
 
 
 
@@ -21,7 +20,7 @@ import { format } from "jsonc-parser";
 export function formatTranslations(translation: string | string[]): JSX.Element | JSX.Element[] {
   let workableTranslation: string[] = (Array.isArray(translation)) ? translation : [translation];
 
-  const formattedTranslation: JSX.Element[] = workableTranslation.map((line, index) => {
+  const formattedTranslation: JSX.Element[] = workableTranslation.map((line, _index) => {
     // just put a span around the lin for now
     //find any <Name> and replace with Foodbank Name
     return formatTranslation(line, aesthetics.foodbank_name).element

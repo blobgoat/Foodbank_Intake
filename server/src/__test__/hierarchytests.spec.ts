@@ -88,7 +88,6 @@ describe('Test that there is a folder with relevant files for each supported lan
 describe('Test that the keys of the standard translation file is correct', () => {
     translationAPI.supportedLanguages.forEach((language) => {
         test(`Standard translation file for ${language} should have correct keys`, () => {
-            const lowercaseLanguage = language.toLocaleLowerCase();
             //other test already checks that the file is parsable json, so we can just use it cause the test is already try catching it
 
             const standardtranslationFilePath = path.join(__dirname, `../../../modifiable_content/${language}/${language.toLocaleLowerCase()}_standard_text.jsonc`);
