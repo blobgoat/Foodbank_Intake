@@ -5,7 +5,7 @@ import { describe, test, expect } from 'vitest'
 import disabledContent from '../../../modifiable_content/disabled_questions_and_pages.generated.json'
 import { DisabledQuestionsAndPages } from '../../../modifiable_content/translationTextInterface'
 import { BLANK_DISABLED_CONTENT } from '../../generated/blankDisabledContent'
-import { validateKeyNaming } from '../utils/testutils'
+import { validateKeyNaming } from '../utils/testUtils'
 
 
 

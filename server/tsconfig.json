@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "outDir": "./build",
     "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
     "types": [
       "node"
     ],
@@ -20,7 +21,10 @@
     "src/**/*.ts",
     "__test__/**/*.ts",
     "./**/*.ts",
-    "secrets/**/*.json"
+    "secrets/**/*.json",
+    "src/utils/utils.tsx",
+    "src/scripts/generateJsonFiles.js",
+    "src/utils/utils.tsx"
   ],
   "exclude": [
     "build",

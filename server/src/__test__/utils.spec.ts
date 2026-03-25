@@ -3,8 +3,10 @@ import { BLANK_DISABLED_CONTENT } from "../../generated/blankDisabledContent";
 import { BLANK_MUTABLE_TEXT_TRANSLATION } from "../../generated/blankMutableTextTranslation";
 import { BLANK_STANDARD_TEXT_TRANSLATION } from "../../generated/blankStandardTextTranslation";
 import { DisabledQuestionsAndPages, MutableTextTranslation, StandardTextTranslation } from "../../../modifiable_content/translationTextInterface";
-import { validateKeyNaming } from "../utils/testutils";
-
+import { validateKeyNaming } from "../utils/testUtils";
+import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json'
+import { formatTranslations } from '../utils/utils'
+import { renderToStaticMarkup } from 'react-dom/server';
 
 //test to make sure the above are indeed blank, this is generated content
 describe('Test blank content creation functions', () => {
@@ -115,3 +117,63 @@ describe.each([
     }
 })
 
+//testing to makesure formating the strings utitlity function is working correctly
+describe.each([
+    //no translations, just it accepts strings
+    { translation: 'Welcome to the Foodbank!', expected: '<span>Welcome to the Foodbank!</span>', message: 'simple string with no place holders', valid: true },
+    { translation: '', expected: '<span></span>', message: 'empty string', valid: true },
+
+    //<name> placeholder
+
+    { translation: 'Welcome to the <name>!', expected: `<span>Welcome to the ${aesthetics.foodbank_name}!</span>`, message: 'name placeholder lowercase', valid: true },
+    { translation: 'Welcome to the <NAME>!', expected: `<span>Welcome to the ${aesthetics.foodbank_name}!</span>`, message: 'name placeholder uppercase', valid: true },
+
+    //italics
+    { translation: 'Welcome to the *Foodbank*!', expected: `<span>Welcome to the <em>Foodbank</em>!</span>`, message: 'italics placeholder', valid: true },
+    { translation: 'Welcome to the *Foodbank* and enjoy your stay at the *Foodbank*!', expected: `<span>Welcome to the <em>Foodbank</em> and enjoy your stay at the <em>Foodbank</em>!</span>`, message: 'multiple italics placeholders', valid: true },
+    { translation: 'Welcome to the *Foodbank and enjoy your stay*!', expected: `<span>Welcome to the <em>Foodbank and enjoy your stay</em>!</span>`, message: 'one long italics placeholder', valid: true },
+
+    //bold
+    { translation: 'Welcome to the **Foodbank**!', expected: `<span>Welcome to the <strong>Foodbank</strong>!</span>`, message: 'single word bold placeholder', valid: true },
+    { translation: 'Welcome to the **Foodbank** and enjoy your stay at the **Foodbank**!', expected: `<span>Welcome to the <strong>Foodbank</strong> and enjoy your stay at the <strong>Foodbank</strong>!</span>`, message: 'multiple bold placeholders', valid: true },
+    { translation: 'Welcome to the **Foodbank and enjoy your stay**!', expected: `<span>Welcome to the <strong>Foodbank and enjoy your stay</strong>!</span>`, message: 'one long bold placeholder', valid: true },
+
+    //bold and italics
+    { translation: 'Welcome to the ***Foodbank***!', expected: `<span>Welcome to the <strong><em>Foodbank</em></strong>!</span>`, message: 'single word bold and italics placeholder', valid: true },
+    { translation: 'Welcome to the ***Foodbank*** and enjoy your stay at the ***Foodbank***!', expected: `<span>Welcome to the <strong><em>Foodbank</em></strong> and enjoy your stay at the <strong><em>Foodbank</em></strong>!</span>`, message: 'multiple bold and italics placeholders', valid: true },
+    { translation: 'Welcome to the ***Foodbank and enjoy your stay***!', expected: `<span>Welcome to the <strong><em>Foodbank and enjoy your stay</em></strong>!</span>`, message: 'one long bold and italics placeholder', valid: true },
+
+    //combinations of bold and bold and italics and name placeholder
+    { translation: 'Welcome to the ***<name>***!', expected: `<span>Welcome to the <strong><em>${aesthetics.foodbank_name}</em></strong>!</span>`, message: 'name placeholder with bold and italics', valid: true },
+    { translation: 'Welcome to the **<name>** and enjoy your stay at the *<name>*!', expected: `<span>Welcome to the <strong>${aesthetics.foodbank_name}</strong> and enjoy your stay at the <em>${aesthetics.foodbank_name}</em>!</span>`, message: 'multiple name placeholders with bold and italics', valid: true },
+    { translation: 'Welcome to the ***<name>* and enjoy your stay**!', expected: `<span>Welcome to the <strong><em>${aesthetics.foodbank_name}</em> and enjoy your stay</strong>!</span>`, message: 'disjointed italics and bold, some covering some not, shouldnt support this', valid: false },
+
+    //invalid cases
+    { translation: 'Welcome to the **Foodbank!', expected: '', message: 'unclosed bold placeholder', valid: false },
+    { translation: 'Welcome to the *Foodbank!', expected: '', message: 'unclosed italics placeholder', valid: false },
+    { translation: 'Welcome to the ***Foodbank!', expected: '', message: 'unclosed bold and italics placeholder', valid: false },
+    { translation: 'Welcome to the <name!', expected: '', message: 'unclosed name placeholder', valid: false },
+
+    //tries to do html injection but should break
+    { translation: 'Welcome to the <span>Foodbank</span>!', expected: ``, message: 'html injection attempt with span tags', valid: false },
+
+])('formatTranslation test', ({ translation, expected, message, valid }) => {
+    if (valid) {
+        test(`The test:"${message}" should format the translation correctly. The params are: translation="${translation}", expected="${expected}"`, () => {
+            const result = formatTranslations(translation);
+            //now turn result into a string by rendering the jsx element to a string, we can use the renderToStaticMarkup function from react-dom/server for this
+            const resultString: string = renderToStaticMarkup(result);
+            expect(resultString).toEqual(expected);
+        });
+    } else {
+        test(`The test:"${message}" should throw an error. The params are: translation="${translation}"`, () => {
+            let error: Error | undefined;
+            try {
+                formatTranslations(translation);
+            } catch (e) {
+                error = e as Error;
+            }
+            expect(error).toBeDefined();
+        });
+    }
+})

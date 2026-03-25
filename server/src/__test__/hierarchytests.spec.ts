@@ -6,7 +6,7 @@ import { BLANK_MUTABLE_TEXT_TRANSLATION } from '../../generated/blankMutableText
 import { parse } from 'jsonc-parser';
 import path from "path";
 import fs from 'fs';
-import { validateKeyNaming } from '../utils/testutils';
+import { validateKeyNaming } from '../utils/testUtils';
 
 //test to see that a folder exists in modifiable content for each supported language
 describe('Test that there is a folder with relevant files for each supported language', () => {
