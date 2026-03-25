@@ -6,15 +6,16 @@
   "scripts": {
     "dev": "vite",
     "start": "node build/server/index.js",
-    "build": "tsc -b",
-    "clean": "tsc -b --clean",
+    "build": "tsc -b tsconfig.build.json",
+    "clean": "tsc -p tsconfig.build.json --clean",
     "preview": "vite preview",
     "test:debug": "node --inspect-brk && npm run test",
     "test:generate": "npm run generate:blank-object && npm run test",
     "test": "npm run generate:json && vitest",
     "generate:blank-object": "tsx src/scripts/generateBlankObject.ts",
     "generate:json": "tsx src/scripts/generateJson.js",
-    "generate": "npm run generate:blank-object && npm run generate:json"
+    "generate": "npm run generate:blank-object && npm run generate:json",
+    "typecheck:test": "tsc -p tsconfig.test.json --noEmit"
   },
   "keywords": [],
   "author": "",
