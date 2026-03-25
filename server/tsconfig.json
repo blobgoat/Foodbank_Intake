@@ -19,16 +19,15 @@
   },
   "include": [
     "src/**/*.ts",
-    "__test__/**/*.ts",
-    "./**/*.ts",
-    "secrets/**/*.json",
-    "src/utils/utils.tsx",
-    "src/scripts/generateJsonFiles.js",
-    "src/utils/utils.tsx"
+    "src/**/*.tsx",
+    "src/**/*.json",
+    "server/index.ts",
+    "src/scripts/generateJsonFiles.js"
   ],
   "exclude": [
     "build",
-    "node_modules"
+    "node_modules",
+    "src/__test__/**"
   ],
   /* Linting */
   "strict": true,

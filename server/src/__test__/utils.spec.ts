@@ -7,6 +7,9 @@ import { validateKeyNaming } from "../utils/testUtils";
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json'
 import { formatTranslations } from '../utils/utils'
 import { renderToStaticMarkup } from 'react-dom/server';
+import { translationAPI } from "../../../modifiable_content/translationAPI";
+import path from "path";
+import fs from 'fs';
 
 //test to make sure the above are indeed blank, this is generated content
 describe('Test blank content creation functions', () => {
@@ -176,4 +179,44 @@ describe.each([
             expect(error).toBeDefined();
         });
     }
+})
+
+//now check every value in language files to make sure they are formating correctly, this is more of an integration test but its good to have
+describe('Test that the standard translation files are parsable', () => {
+    translationAPI.supportedLanguages.forEach((language) => {
+        const lowercaseLanguage = language.toLocaleLowerCase();
+        test(`standard translation file for ${language} should be parsable and formattable`, () => {
+            const standardtranslationFilePath = path.join(__dirname, `../../../modifiable_content/${language}/${lowercaseLanguage}_mutable_text.generated.json`);
+            const content = JSON.parse(fs.readFileSync(standardtranslationFilePath, 'utf8'));
+            for (const key in content) {
+                const translation = content[key];
+                if (typeof translation === 'string') {
+                    expect(() => formatTranslations(translation)).not.toThrow();
+                } else if (Array.isArray(translation)) {
+                    translation.forEach(line => {
+                        expect(() => formatTranslations(line)).not.toThrow();
+                    });
+                }
+            }
+
+        })
+
+        test(`mutable translation file for ${language} should be parsable and formattable`, () => {
+            const mutabletranslationFilePath = path.join(__dirname, `../../../modifiable_content/${language}/${lowercaseLanguage}_standard_text.generated.json`);
+            const content = JSON.parse(fs.readFileSync(mutabletranslationFilePath, 'utf8'));
+            for (const key in content) {
+                const translation = content[key];
+                if (typeof translation === 'string') {
+                    expect(() => formatTranslations(translation)).not.toThrow();
+                } else if (Array.isArray(translation)) {
+                    translation.forEach(line => {
+                        expect(() => formatTranslations(line)).not.toThrow();
+                    });
+                }
+
+            }
+        })
+
+
+    })
 })
