@@ -74,36 +74,35 @@ Foodbank_Intake/
 ---
 
 ## REST API Endpoints
+Note: currently there is only two planned API calls
 
 | Method | Path | Description |
 |--------|------|-------------|
 | `GET` | `/health` | Health check |
-| `POST` | `/api/clients` | Register a new client |
-| `GET` | `/api/clients/search` | Search clients by name, phone, or ID |
-| `POST` | `/api/clients/:id/checkin` | Check in a returning client |
-| `GET` | `/api/inventory` | List all inventory items |
 | `POST` | `/api/intake` | Record an intake transaction |
 
 ---
 
 ## Getting Started
 
-### Prerequisites
 - Node.js 18+
 - npm 8+
+- TypeScript 5.9+
+- React 19.2+
+- Express 5.2+
 
 ### Run locally
 
 **Backend:**
 ```bash
-cd backend
+cd server
 npm install
 npm start        # runs on http://localhost:3001
 ```
 
 **Frontend:**
 ```bash
-cd frontend
+cd client
 npm install
 npm start        # runs on http://localhost:3000
 ```
@@ -111,15 +110,21 @@ npm start        # runs on http://localhost:3000
 The frontend proxies `/api` requests to the backend automatically in development (configured via `"proxy"` in `package.json`).
 
 ### Run tests
+
 ```bash
-cd frontend
+cd client
+npm test
+```
+and
+```bash
+cd server
 npm test
 ```
 
 ### Build for production
 ```bash
-cd frontend
-REACT_APP_API_URL=https://your-api-gateway-url/api npm run build
+cd client
+REACT_APP_API_URL=<secret> npm run build
 ```
 
 ---
@@ -152,8 +157,8 @@ aws cloudformation create-stack \
 ## Customization
 
 Each food bank can customize:
-- **Inventory items** — edit `backend/src/data/store.js` (or seed from DynamoDB)
-- **Intake form fields** — edit `frontend/src/pages/NewIntake.js` and the corresponding API route
-- **Branding / colors** — the primary green `#2c7a3a` is set throughout the CSS files
+- **Add translations for your community** — edit `modifiable_content/translationAPI.ts` and add a language name to that file. Then build corresponding files by copying the english folder, and rename every file where english is displayed with the name of the language you are adding support for. (ideally we will make a build tool for convenience)
+- **Intake form fields** — edit `modifiable_content/` and the corresponding tanslated languages mutable text.
+- **Branding / colors** — for instance the primary green `#2c7a3a` is set throughout the CSS files inside `modifiable_content/foodbank_aesthetics.jsonc`
 - **API base URL** — set via `REACT_APP_API_URL` environment variable
 
