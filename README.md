@@ -2,6 +2,8 @@
 
 A website which will host a food bank intake process. The goal of this project is to not only make an intake form/process but make something designed and documented in such a way all foodbanks can easily modify and use for their individual services.
 
+For more helpful information please enter `documentation/`. There are specific instructions and information for if you are a developer, a curious foodbank benefactor, or a foodbank owner/volunteer. This README is meant to give an overview and a description of what every folder does
+
 ---
 
 ## Overview
@@ -44,6 +46,7 @@ Foodbank_Intake/
 |   |   └──utils/      # Houses utility functions reusable by multiple applications
 │   └── package.json
 ├── documentation      # This folder houses more specific documentation for developers, guests, and foodbank leaders.
+├── datastructs # datastructs for modifiable content are housed in the modifable_content folder. All other global types and data structs used on both the client and server are housed here
 ├── modifiable_content # this is meant to be the workable folder for easy and adaptbale changes to the webpage
 |   ├──Images          # houses specific images for the foodbank. Like the company logo
 |   ├──<Language>      # folders which starts with any language name
