@@ -1,0 +1,41 @@
+{
+    /*Read the Read me to understand the difference between these two json files
+    ***DO NOT CHANGE THE KEYS, ONLY THE VALUES***
+        -This houses text that is expected to change based on foodbank specific services
+        -Make sure to translate the text to the appropriate language in other fields, and create a git issue
+            to communicate that the base line text has changed and needs to be translated in the other language
+            files relevant to your community
+        -to turn off the lynwood custom page, specific questions or just any page, refer to the relevant json file
+        -DO NOT CHANGE THE KEYS, only the values, as the keys are what the codebase uses to pull the text, 
+            and changing them will break the codebase
+        
+        This file will progress by refering to page number, or components for reusable things like buttons
+         to avoid confusion make sure you know which pages are enabled in your code base
+
+        Key: 
+        *word*=> italicized text
+        **word**=> bolded text  
+        ***word***=> both
+        <Name> => this is a tag to indicate where the foodbank name should be, 
+            please leave it in english, but feel free to reorder it or insert wherewever in any sentence 
+            as needed for your language
+
+        Key for developers:
+        - First letter indicates usage: p (page), c (component), q (question), etc.
+        - Followed by page number if applicable, then descriptive name
+        - Example: q1 = question on page 1, q2 = question on page 2
+        - No number = reusable component (e.g., buttons used on multiple pages)
+    */
+    /* Components*/
+    "cBackButton": "Back",
+    "cNextButton": "Next",
+    "cSubmitButton": "**Submit**",
+    //the <Name> tag is here to enable easier translation, Please leave it in english, 
+    // but feel free to reorder it in the sentence as needed for your language
+    "cIntakeInfoHeader": "**<Name> Intake Form**",
+    //^^^ this is the bar at the top of the page, it is used on every page
+    /* Page 1: Welcome Page */
+    "p1Notice": "*Please note:*\n• Documentation is *NOT* required for service.\n• Proof of income is *NOT* required for service.\n• Proof of address is *NOT* required for service.",
+    "p1WelcomeMessage": "**We Serve Everyone!**",
+    "p1Preamble": "If you are struggling to access food please fill out intake form:"
+}

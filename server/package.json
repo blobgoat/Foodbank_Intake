@@ -6,11 +6,16 @@
   "scripts": {
     "dev": "vite",
     "start": "node build/server/index.js",
-    "build": "tsc -b",
-    "clean": "tsc -b --clean",
+    "build": "tsc -b tsconfig.build.json",
+    "clean": "tsc -p tsconfig.build.json --clean",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:run": "vitest run"
+    "test:debug": "node --inspect-brk && npm run test",
+    "test:generate": "npm run generate:blank-object && npm run test",
+    "test": "npm run generate:json && vitest",
+    "generate:blank-object": "tsx src/scripts/generateBlankObject.ts",
+    "generate:json": "tsx src/scripts/generateJson.js",
+    "generate": "npm run generate:blank-object && npm run generate:json",
+    "typecheck:test": "tsc -p tsconfig.test.json --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -20,11 +25,21 @@
     "@types/express": "^5.0.6",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "fs": "^0.0.1-security",
+    "jsonc-parser": "^3.3.1",
+    "path": "^0.12.7",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "uuid": "^13.0.0",
     "vitest": "^4.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "ts-morph": "^27.0.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }

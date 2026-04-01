@@ -44,7 +44,7 @@ jobs:
 
       - name: Run Server Tests
         working-directory: ./server
-        run: npm run test
+        run: npm run test:generate
 
       - name: Build Server
         working-directory: ./server

@@ -1,0 +1,24 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "composite": true,
+        "types": [
+            "node"
+        ],
+        "rootDir": "..",
+        "jsx": "react-jsx"
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "server/src/__test__/**/*.ts",
+        "server/src/__test__/**/*.tsx",
+        "../modifiable_content/**/*.ts",
+        "../modifiable_content/**/*.json",
+        "./generated/*.ts",
+    ],
+    "exclude": [
+        "node_modules",
+        "build"
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    /* Brand Specific*/
+    "foodbank_name": "Lynwood Foodbank",
+    "foodbank_logo": "C:../images/FoodbankLogo.png",
+    /* Color Palette 
+    Note: primary color is not currently being used, as everything in the front is buttons
+    also saturation and hue is only adjustable in the codebase >look in components
+    */
+    "primary_color": "247013",
+    "secondary_color": "8DC75B",
+    "background_color": "FFFFFF",
+    "info_text_color": "000000",
+    /* Button colors */
+    "button_static_color": "247013",
+    "disabled_button_color": "247013",
+    "hover_button_color": "1C5310",
+    "clicked_button_color": "0F2D08",
+    "button_text_color": "F5F5F5",
+    /* Typography */
+    //Font size will up scale with the screen size, px
+    //values are there to indicate size, or min size on phone screen
+    "info_font": "Reddit Sans",
+    "info_font_size": "20px",
+    /* used for start and submit buttons*/
+    "dramatic_button_font": "Bebas Neue",
+    "regular_button_font": "Reddit Sans",
+    "start_button_font_size": "120px",
+    "form_heading_font": "Lato",
+    "form_heading_font_size": "18px",
+    /* Other */
+    "corner_radius": "8px"
+}

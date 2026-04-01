@@ -1,0 +1,23 @@
+export interface StandardTextTranslation {
+    //components
+    cBackButton: string;
+    cNextButton: string;
+    cSubmitButton: string;
+    cIntakeInfoHeader: string;
+
+    //page 1
+    p1WelcomeMessage: string;
+    p1Notice: string;
+    p1Preamble: string;
+}
+
+export interface MutableTextTranslation {
+    //currently empty
+    p1Placeholder: string;
+}
+
+export interface DisabledQuestionsAndPages {
+    p1WelcomePage: boolean;
+    //currently only one page, but this can be expanded as we add more pages and questions
+}
+

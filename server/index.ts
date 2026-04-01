@@ -1,8 +1,8 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
 import cors from 'cors';
-import clientsRouter from './src/routes/clients.js';
-import inventoryRouter from './src/routes/inventory.js';
-import intakeRouter from './src/routes/intake.js';
+// import clientsRouter from './src/routes/clients.js';
+// import inventoryRouter from './src/routes/inventory.js';
+// import intakeRouter from './src/routes/intake.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,9 +14,12 @@ app.use(express.json());
 app.get('/health', (_req: Request, res: Response) => res.json({ status: 'ok' }));
 
 // API routes
-app.use('/api/clients', clientsRouter);
-app.use('/api/inventory', inventoryRouter);
-app.use('/api/intake', intakeRouter);
+// app.use('/api/clients', clientsRouter);
+// app.use('/api/inventory', inventoryRouter);
+// app.use('/api/intake', intakeRouter);
+app.use('/api/test', (_req: Request, res: Response) => {
+  res.json({ message: 'Server is running' });
+});
 
 // 404 handler
 app.use((_req: Request, res: Response) => {
