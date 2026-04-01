@@ -57,6 +57,7 @@ TODO: go through specifics of how to build the project
 
 
 ### Testing
+TODO: fix testing to only be vite
 For testing, our client and server side uses Vitest and our server uses Jest. To run the automated tests, `cd` into the server or client folder and run `npm run test` to run tests. For the client you can also run `npm run coverage` for a code coverage report.
 
 To write your own client side Vitest tests:

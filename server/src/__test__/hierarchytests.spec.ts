@@ -59,7 +59,7 @@ describe('Test that there is a folder with relevant files for each supported lan
     });
     //I want to test and see that in modified content, if I hit ls in the terminal, I should only see these folders, plus the language ones
     test('modifiable content should only have the language folders and the expected json/ts files, these are hard coded in test files', () => {
-        const expectedFiles = ['disabled_questions_and_pages.jsonc', 'foodbank_aesthetics.jsonc', 'foodbank_aesthetics.generated.json', 'disabled_questions_and_pages.generated.json', 'translationAPI.ts', 'translationTextInterface.ts', 'README'];
+        const expectedFiles = ['disabled_questions_and_pages.jsonc', 'foodbank_aesthetics.jsonc', 'foodbank_aesthetics.generated.json', 'disabled_questions_and_pages.generated.json', 'translationAPI.ts', 'translationTextInterface.ts', 'README.md'];
         const expectedFolders = [...translationAPI.supportedLanguages, 'Images'];
 
 

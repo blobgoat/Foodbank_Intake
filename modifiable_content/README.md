@@ -8,7 +8,7 @@ The `images` folder contains assets expected to change per location (currently: 
 
 ### Language Folders
 Each supported language has its own folder containing:
-- **`<language>_standard_text.jsonc`** - Immutable base text (do not modify)
+- **`<language>_standard_text.jsonc`** - Base text - generally translate only
 - **`<language>_standard_text.generated.json`** - Auto-generated JSON version of standard text (do not modify)
 - **`<language>_mutable.jsonc`** - Customizable text file expected to vary by location
 - **`<language>_mutable.generated.json`** - Auto-generated JSON version of mutable text (do not modify)
