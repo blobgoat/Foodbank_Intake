@@ -10,11 +10,11 @@ For more helpful information please enter `documentation/`. There are specific i
 
 A full-stack JavaScript web application built with **React** (frontend) and **Node.js/Express** (REST API backend), designed for deployment on **AWS**.
 
-### 5 Pages
+### 7 Pages
 
 | Page | Path | Description |
 |------|------|-------------|
-| **Weclome** | `/` | Welome page allowing the user to start the process by pushing the button |
+| **Welcome** | `/` | Welcome page allowing the user to start the process by pushing the button |
 | **Account Holder** | `/account-holder` | Collects information of the account holder |
 | **Group Members** | `/group-members` | Collects information of the family or group under the account holder |
 | **Dietary Restrictions** | `/diet-restrictions` | allows client to input dietary restrictions, and modifications to their meal package |
@@ -47,24 +47,23 @@ Foodbank_Intake/
 │   └── package.json
 ├── documentation      # This folder houses more specific documentation for developers, guests, and foodbank leaders.
 ├── datastructs # datastructs for modifiable content are housed in the modifable_content folder. All other global types and data structs used on both the client and server are housed here
-├── modifiable_content # this is meant to be the workable folder for easy and adaptbale changes to the webpage
+├── modifiable_content # this is meant to be the workable folder for easy and adaptable changes to the webpage
 |   ├──Images          # houses specific images for the foodbank. Like the company logo
 |   ├──<Language>      # folders which starts with any language name
 |   |   ├──<language>_mutable_text.jsonc # holds the mutable or expected to be changed based on food bank text (outside of the company name)
 |   |   ├──<language>_mutable_text.generated.json # holds the json file which other files call upon, should be generated and carries the same fields as the .jsonc
 |   |   ├──<language>_standard_text.jsonc # holds the standard or the expected to be reusable text for all food banks
-|   |   └──<language>_mutable_test.generated.json # holds the standard or expected to be reused for all food bank's text (outside of the company name)
+|   |   └──<language>_standard_text.generated.json # holds the standard or expected to be reused for all food bank's text (outside of the company name)
 |   ... (every supported language should follow the above format)
 |   ├── disabled_questions_and_pages.jsonc #turning off fields will allow foodbanks to leave out or skip different pages, and also to leave out or skip certain questions. With the exception of the submission page
 |   ├── disabled_questions_and_pages.generated.json #this is simply the generated version of the jsonc file that integrates with typescript
-|   ├──foodbank_aesthetics.jsonc  # this file houses all the aethsthetics or branding of a certain foodbank. Everything that doesnt have to do with language. Except, of course, the name of the foodbank
+|   ├──foodbank_aesthetics.jsonc  # this file houses all the aesthetics or branding of a certain foodbank. Everything that doesnt have to do with language. Except, of course, the name of the foodbank
 |   ├──foodbank_aesthetics.generated.json  #this is simply the generated version of the jsonc file that integrates with typescript
 |   ├──translationAPI.ts  #this is a functional API which abstracts the language away from the programmer. This object will house the selected language and then when running the objects function will return the correct languages text for each section
 |   └──translationTextInterface.ts # this typescript file houses the interfaces typescript is using to track types for all modifiable json files
 ├── server/           # Node.js/Express REST API
 │   ├── src/
 |   |   ├──__tests__   #houses the tests for the back end and for style checking modifiable_content
-|   |   ├──__tests__   #houses the tests for the front end
 │   │   ├── data/      # In-memory store (replace with DynamoDB for production)
 |   |   ├── scripts/    #houses the development tools which build files to enable better testing
 │   │   ├── routes/    # clients.js, inventory.js, intake.js
@@ -77,7 +76,7 @@ Foodbank_Intake/
 ---
 
 ## REST API Endpoints
-Note: currently there is only two planned API calls
+Note: currently there are only two planned API calls
 
 | Method | Path | Description |
 |--------|------|-------------|
@@ -161,7 +160,7 @@ aws cloudformation create-stack \
 
 Each food bank can customize:
 - **Add translations for your community** — edit `modifiable_content/translationAPI.ts` and add a language name to that file. Then build corresponding files by copying the english folder, and rename every file where english is displayed with the name of the language you are adding support for. (ideally we will make a build tool for convenience)
-- **Intake form fields** — edit `modifiable_content/` and the corresponding tanslated languages mutable text.
+- **Intake form fields** — edit `modifiable_content/` and the corresponding translated languages mutable text.
 - **Branding / colors** — for instance the primary green `#2c7a3a` is set throughout the CSS files inside `modifiable_content/foodbank_aesthetics.jsonc`
 - **API base URL** — set via `REACT_APP_API_URL` environment variable
 
