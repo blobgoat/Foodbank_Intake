@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Foodbank Intake — Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the React/TypeScript frontend for the Foodbank Intake application. It is built with **Vite** and **React 19**.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the `client/` directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the app in development mode. Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The page will hot-reload when you make changes. Lint errors will appear in the console.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `dist/` folder. The output is minified and filenames include content hashes.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Set the `REACT_APP_API_URL` environment variable to point to your deployed API Gateway URL before building:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+REACT_APP_API_URL=<your-api-gateway-url> npm run build
+```
 
-### `npm run eject`
+### `npm run preview`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Serves the production build locally for verification before deploying.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `npm test` / `npm run coverage`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Runs the Vitest test suite. Use `npm run coverage` for a full code coverage report.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Project Structure
 
-## Learn More
+```
+client/
+├── public/          # Static assets served as-is
+├── src/
+│   ├── __test__/    # Vitest test files
+│   ├── api/         # Axios API client (api.ts)
+│   ├── components/  # Shared components (BackButton, etc.)
+│   ├── pages/       # Page-level components (one per route)
+│   └── utils/       # Shared utility functions
+├── index.html       # Vite entry point
+└── package.json
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Adding a New Page
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Create a new `.tsx` file in `src/pages/`.
+2. Register the route in `src/App.tsx`.
+3. Add a back button using the `<BackButton />` component from `src/components/BackButton.tsx` if needed.

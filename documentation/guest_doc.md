@@ -1,6 +1,6 @@
-#Welcome the Lynnwood Food Bank's online intake system!
+# Welcome to the Lynnwood Food Bank's online intake system!
 
-Thank you for deciding to filling out our intake form online.
+Thank you for deciding to fill out our intake form online.
 > [!CAUTION]
 > If you find yourself vulnerable to government actors in any way,
 > please do not use our online intake form.  Volunteers will be able to assist
@@ -34,7 +34,7 @@ You should see this Google Form:
 ![image](https://github.com/user-attachments/assets/164ff5c8-d50f-4abb-9461-8a9380512ae7)
 
 If you do not see this page, you have not submitted the form and should try again.
-If you see this page, you have submitted the online intake form, thank you and congradulations!
+If you see this page, you have submitted the online intake form, thank you and congratulations!
 
 During your visit, a volunteer will ask for your name.  If there happened to be an issue with the system or
 your information, you will need to interact with the volunteer to ensure that your information is correct.

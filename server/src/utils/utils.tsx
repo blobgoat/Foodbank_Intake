@@ -8,8 +8,8 @@ import React from "react";
  * This function takes a raw string with potential formatting and return a HTML string.
  * Currently in functionality you should expect
  *    -"\n" to be replaced with line break
- *    -"*text*" to be replaced with <strong>text</strong>
- *    -"**text**" to be replaced with <em>text</em>
+ *    -"*text*" to be replaced with <em>text</em>
+ *    -"**text**" to be replaced with <strong>text</strong>
  *    -"***text***" to be replaced with <strong><em>text</em></strong>
  *    - "<name>" to be replaced with foodbank or brand name 
  * and the jsx element with be surrounded by <span>
@@ -134,7 +134,7 @@ export function validateTranslationString(raw: string): TranslationValidationRes
   if (protectedRaw.includes('>')) {
     invalidTokens.push('>');
   }
-  //if there is three apostrophe in a row it should be closed with a three apostrophes
+  //if there are three asterisks in a row they should be closed with three asterisks
   const tripleApostrophePattern = /\*\*\*(.+?)\*\*\*/g;
   let match: RegExpExecArray | null;
   while ((match = tripleApostrophePattern.exec(raw)) !== null) {
@@ -143,16 +143,16 @@ export function validateTranslationString(raw: string): TranslationValidationRes
       invalidTokens.push(`Invalid nested formatting in ***${content}***`);
     }
   }
-  //now remove all the triple apostrophes so they dont interfere with the double and single apostrophe checks
+  //now remove all the triple asterisks so they dont interfere with the double and single asterisk checks
   const withoutTriple = raw.replace(tripleApostrophePattern, '$1');
-  //check to see if there are any triple apostrophes that are not closed
+  //check to see if there are any triple asterisks that are not closed
   const unclosedTriplePattern = /\*\*\*(.*)/g;
   if (unclosedTriplePattern.test(withoutTriple)) {
-    invalidTokens.push('Unclosed triple apostrophes');
+    invalidTokens.push('Unclosed triple asterisks');
     return invalidTokens.length === 0 ? { isValid: true, invalidTokens: [] } : { isValid: false, invalidTokens };
   }
 
-  //if there is two apostrophe in a row it should be closed with two apostrophes
+  //if there are two asterisks in a row they should be closed with two asterisks
   const doubleApostrophePattern = /\*\*(.+?)\*\*/g;
   while ((match = doubleApostrophePattern.exec(withoutTriple)) !== null) {
     const content: string = match[1];
@@ -161,22 +161,22 @@ export function validateTranslationString(raw: string): TranslationValidationRes
     }
   }
   const withoutDouble = withoutTriple.replace(doubleApostrophePattern, '$1');
-  //now check if unclosed double apostrophes
+  //now check if unclosed double asterisks
   const unclosedDoublePattern = /\*\*(.*)/g;
   if (unclosedDoublePattern.test(withoutDouble)) {
-    invalidTokens.push('Unclosed double apostrophes');
+    invalidTokens.push('Unclosed double asterisks');
     return invalidTokens.length === 0 ? { isValid: true, invalidTokens: [] } : { isValid: false, invalidTokens };
   }
 
-  //if there is one apostrophe it should be closed or in other words there should not be an odd number of apostrophes
-  //so count all apostrophes
-  const apostrophePattern = /\*/g;
-  let apostropheCount = 0;
-  while ((match = apostrophePattern.exec(withoutDouble)) !== null) {
-    apostropheCount++;
+  //a single asterisk must be matched — in other words there should not be an odd number of asterisks
+  //so count all asterisks
+  const asteriskPattern = /\*/g;
+  let asteriskCount = 0;
+  while ((match = asteriskPattern.exec(withoutDouble)) !== null) {
+    asteriskCount++;
   }
-  if (apostropheCount % 2 !== 0) {
-    invalidTokens.push('Unmatched apostrophe');
+  if (asteriskCount % 2 !== 0) {
+    invalidTokens.push('Unmatched asterisk');
   }
 
   return {

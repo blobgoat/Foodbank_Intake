@@ -1,12 +1,12 @@
-## Developers Manual
+# Developers Manual
 Welcome to the developer's manual. Here is everything you need to start contributing to our project:
 
 
 ## Tools
-The only requirement for this project is to have [Node.js](https://nodejs.org/en/download) installed. Instructions can be found in the link. Our project uses version 11.3.0 and has no guarantees for other versions, though higher versions should work. Instructions on how to install dependencies are under [Usage](#Usage)
+The only requirement for this project is to have [Node.js](https://nodejs.org/en/download) installed. Instructions can be found in the link. Our project requires Node.js 18+ and has no guarantees for older versions. Instructions on how to install dependencies are under [Usage](#Usage)
 
 ## Core Functionality
-TODO: write core functionality of foodbank intake form
+The Foodbank Intake application guides food bank guests through a multi-step online intake form. Guests fill out personal and household information, dietary restrictions, and food bank-specific questions. On submission, data is sent to the backend API which processes and stores entries. The backend flags potentially duplicate or suspicious submissions for volunteer review. Volunteers can then review, correct, or approve entries through a separate volunteer interface.
 
 ## Repository Layout
 There are two directories, a frontend `client` and a `backend server`. Each is it's own project, detailed below. In addition, there is a `documentation` directory that provides further details about our project. Development, building, and testing will be detailed below under [Usage](#Usage).
@@ -14,7 +14,7 @@ There are two directories, a frontend `client` and a `backend server`. Each is i
 ### documentation/
 This is a container for documentation useful to those that interact with the repository.  Includes:
 - `documentation/guest_doc.md` to act as a user guide for guests of the foodbank.
-- `documentation/volunteer_doc.md` to be an instruction manual for volunteers.
+- `documentation/volunteer_doc.md` to be an instruction manual for volunteers. (not yet written)
 - `documentation/dev_doc.md` to include further specifications for developers.
 - `documentation/threat_assessment` to include an assessment of the specific security risks we have identified.
 
@@ -26,7 +26,7 @@ Includes:
 - `client/src/__test__` contains automated tests for the local website.
 
 ### server/
-This is a Node.js server that abstracts away all the interactions with our inernal data and logic.
+This is a Node.js server that abstracts away all the interactions with our internal data and logic.
 Includes:
 - `server/package.json` to specify the dependencies of the local website.
 - `server/__test__` contains automated tests of the local website.
@@ -37,10 +37,11 @@ Begin by cloning or forking this repository. There is sufficient documentation f
 
 ### .env
 
-TODO: write env documentation
+The `client/.env` file sets environment variables for the frontend. The key variable is:
+- `REACT_APP_API_URL` — the base URL of the deployed backend API (e.g. your API Gateway URL). In local development this is not needed since the Vite dev server proxies `/api` requests to `localhost:3001` automatically.
 
 ### Dependencies
-To install requried dependencies:
+To install required dependencies:
 1. `cd server` to enter the server directory
 2. `npm install` to install all server dependencies
 3. `cd ../client` to enter the client directory (this assumes you are currently in server, modify this command depending on your current directory to take you to the client directory)
@@ -48,20 +49,43 @@ To install requried dependencies:
 
 ### Development
 
-TODO: describe specific ports and how to run it localy for development and testing.
+Run the backend and frontend in separate terminals:
+
+```bash
+# Terminal 1 — backend (runs on http://localhost:3001)
+cd server
+npm install
+npm start
+
+# Terminal 2 — frontend (runs on http://localhost:5173)
+cd client
+npm install
+npm run dev
+```
+
+The Vite dev server automatically proxies `/api` requests to `http://localhost:3001`, so no additional configuration is needed during local development.
 
 
 ### Building
 
-TODO: go through specifics of how to build the project
+To build the frontend for production:
+```bash
+cd client
+REACT_APP_API_URL=<your-api-gateway-url> npm run build
+```
+The output is placed in `client/dist/`. To build the backend:
+```bash
+cd server
+npm run build
+```
+The compiled output is placed in `server/build/`.
 
 
 ### Testing
-TODO: fix testing to only be vite
-For testing, our client and server side uses Vitest and our server uses Jest. To run the automated tests, `cd` into the server or client folder and run `npm run test` to run tests. For the client you can also run `npm run coverage` for a code coverage report.
+Both the client and server use **Vitest** for automated testing. To run the automated tests, `cd` into the server or client folder and run `npm run test`. For the client you can also run `npm run coverage` for a code coverage report.
 
 To write your own client side Vitest tests:
-- Locate that `__test__` folder under `client/src/__test__`
+- Locate the `__test__` folder under `client/src/__test__`
 - If you wish to set up your own tests, right click the `__test__` folder and select New File. Otherwise edit or add to the existing tests we have.
 - Use this template to write your tests. We do not require any specific guidelines, but your tests should be modular, readable, and well documented.
 
@@ -79,20 +103,20 @@ test('A descriptive test name', () => {
 
 ```
 
-To write your own server side Jest tests:
-- Locate that `__test__` folder under `server/__test__`
+To write your own server side Vitest tests:
+- Locate the `__test__` folder under `server/src/__test__`
 - If you wish to set up your own tests, right click the `__test__` folder and select New File. Otherwise edit or add to the existing tests we have.
 - Use this template to write your tests. We do not require any specific guidelines, but your tests should be modular, readable, and well documented.
-- following the describe.each format makes it easier to add test cases and paramerize input. optionally you can create your own name for the test case, or you can just put the inputs as $input
--for large mock data use a .ts file to declare and export it to not dirty the test scripts with an insummountable amount of information
+- Following the `describe.each` format makes it easier to add test cases and parameterize input. Optionally you can create your own name for the test case, or you can just use the inputs as `$input`.
+- For large mock data, use a `.ts` file to declare and export it to avoid cluttering the test scripts with an insurmountable amount of information.
 
 ```Javascript
 import {expect, test} from 'vitest';
 import { demo_sum } from '../utils/utils';  // import what you want to test
 describe.each([
     {
-      name: 'descriptivename'
-      input: 'values'
+      name: 'descriptivename',
+      input: 'values',
       expect: 'expected output'
     }])('function_name - $name', ({ input, expected }) => {
 it('descriptive subtest name', () => {

@@ -1,4 +1,4 @@
-#Threat and Risk Assessment
+# Threat and Risk Assessment
 This assessment is current as of June 3rd, 2025.
 
 ## Overview
@@ -22,7 +22,7 @@ government espionage to threaten the confidentiality of our users. As such attac
 a foodbank using *FoodBank Connect*, we should also expect internal espionage to be possible.
 
 ### Risks to Integrity
-There are individuals that may seek to use *FoodBank Connect* to present introduce faulty entries for the
+There are individuals that may seek to use *FoodBank Connect* to introduce faulty entries for the
 purpose of obtaining extra food from the foodbank.  We rely on volunteers for authentication of guest supplied data.
 
 We should therefore expect civilian exploitation and internal misuse to threaten the integrity of our system.
@@ -77,7 +77,7 @@ To mitigate this threat, we flag suspicious entries and rely on volunteers to re
 
 #### Attack: Mislead volunteers to deleting correct data or insert incorrect data.
 If volunteers are mislead intentionally or otherwise, they can delete correct data from FBM or delete a flagged entry that contains mostly correct information.  By presenting their problem in an obtuse fashion, guests can confuse volunteers and lead them to act
-in ways that compramise the data of guests.
+in ways that compromise the data of guests.
 
 The likelihood of an attacker succeeding using this strategy is moderate and the impact is moderate because 
 people can be deceived and volunteers are busy people.
