@@ -15,6 +15,7 @@
         "server/src/__test__/**/*.tsx",
         "../modifiable_content/**/*.ts",
         "../modifiable_content/**/*.json",
+        "../modifiable_content/**/*.jsonc",
         "./generated/*.ts",
     ],
     "exclude": [

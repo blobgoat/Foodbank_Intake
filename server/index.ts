@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import express, { type Request, type Response, type NextFunction } from 'express';
 import cors from 'cors';
 // import clientsRouter from './src/routes/clients.js';
@@ -27,6 +28,7 @@ app.use((_req: Request, res: Response) => {
 });
 
 // Error handler
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Internal server error' });

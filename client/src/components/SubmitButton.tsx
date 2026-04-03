@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translationAPI } from '../../../modifiable_content/translationAPI';
+import { formatTranslations } from '../../../server/src/utils/utils';
+import { toPlainText } from '../utils/utils';
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json';
 import './SubmitButton.css';
 
@@ -19,28 +21,29 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   onClick,
   label = translationAPI.getStandardTranslation().cSubmitButton,
   disabled = false,
-}) => {
+}: SubmitButtonProps) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     if (disabled) return;
     if (onClick) onClick();
     if (to) navigate(to);
   };
 
   const cssVars = {
-    '--button-color-static':   `#${aesthetics.button_color_static}`,
-    '--button-color-hover':    `#${aesthetics.button_color_hover}`,
-    '--button-color-active':   `#${aesthetics.button_color_active}`,
+    '--button-color-static': `#${aesthetics.button_color_static}`,
+    '--button-color-hover': `#${aesthetics.button_color_hover}`,
+    '--button-color-active': `#${aesthetics.button_color_active}`,
     '--button-color-disabled': `#${aesthetics.button_color_disabled}`,
-    '--button-color-text':     `#${aesthetics.button_color_text}`,
-    '--button-border-color':   `#${aesthetics.button_border_color}`,
-    '--button-border-width':   aesthetics.button_border_width,
-    '--button-radius':         aesthetics.corner_radius,
-    '--button-font':           aesthetics.dramatic_button_font,
-    '--button-font-size':      aesthetics.button_font_size_submit,
-    '--button-width':          aesthetics.button_width_submit,
-    '--button-height':         aesthetics.button_height_submit,
+    '--button-color-text': `#${aesthetics.button_color_text}`,
+    '--button-border-color': `#${aesthetics.button_border_color}`,
+    '--button-border-width': aesthetics.button_border_width,
+    '--button-radius': aesthetics.corner_radius,
+    '--button-font': aesthetics.dramatic_button_font,
+    '--button-font-size': aesthetics.button_font_size_submit,
+    '--button-width': aesthetics.button_width_submit,
+    '--button-height': aesthetics.button_height_submit,
+    '--button-icon-size': aesthetics.button_icon_size_submit,
   } as React.CSSProperties;
 
   return (
@@ -49,9 +52,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       style={cssVars}
       onClick={handleClick}
       disabled={disabled}
-      aria-label={label}
+      aria-label={toPlainText(label, aesthetics.foodbank_name)}
     >
-      <span className="submit-button__label">{label}</span>
+      <span className="submit-button__label">{formatTranslations(label)}</span>
       {aesthetics.button_icon_submit && (
         <img
           className="submit-button__icon"

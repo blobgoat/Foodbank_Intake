@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translationAPI } from '../../../modifiable_content/translationAPI';
+import { formatTranslations } from '../../../server/src/utils/utils';
+import { toPlainText } from '../utils/utils';
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json';
 import './BackButton.css';
 
@@ -19,10 +21,10 @@ const BackButton: React.FC<BackButtonProps> = ({
   onClick,
   label = `← ${translationAPI.getStandardTranslation().cBackButton}`,
   disabled = false,
-}) => {
+}: BackButtonProps) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     if (disabled) return;
     if (onClick) onClick();
     if (to) navigate(to);
@@ -30,18 +32,19 @@ const BackButton: React.FC<BackButtonProps> = ({
   };
 
   const cssVars = {
-    '--button-color-static':   `#${aesthetics.button_color_static}`,
-    '--button-color-hover':    `#${aesthetics.button_color_hover}`,
-    '--button-color-active':   `#${aesthetics.button_color_active}`,
+    '--button-color-static': `#${aesthetics.button_color_static}`,
+    '--button-color-hover': `#${aesthetics.button_color_hover}`,
+    '--button-color-active': `#${aesthetics.button_color_active}`,
     '--button-color-disabled': `#${aesthetics.button_color_disabled}`,
-    '--button-color-text':     `#${aesthetics.button_color_text}`,
-    '--button-border-color':   `#${aesthetics.button_border_color}`,
-    '--button-border-width':   aesthetics.button_border_width,
-    '--button-radius':         aesthetics.corner_radius,
-    '--button-font':           aesthetics.regular_button_font,
-    '--button-font-size':      aesthetics.button_font_size_back,
-    '--button-width':          aesthetics.button_width_back,
-    '--button-height':         aesthetics.button_height_back,
+    '--button-color-text': `#${aesthetics.button_color_text}`,
+    '--button-border-color': `#${aesthetics.button_border_color}`,
+    '--button-border-width': aesthetics.button_border_width,
+    '--button-radius': aesthetics.corner_radius,
+    '--button-font': aesthetics.regular_button_font,
+    '--button-font-size': aesthetics.button_font_size_back,
+    '--button-width': aesthetics.button_width_back,
+    '--button-height': aesthetics.button_height_back,
+    '--button-icon-size': aesthetics.button_icon_size_back,
   } as React.CSSProperties;
 
   return (
@@ -50,7 +53,7 @@ const BackButton: React.FC<BackButtonProps> = ({
       style={cssVars}
       onClick={handleClick}
       disabled={disabled}
-      aria-label={label}
+      aria-label={toPlainText(label, aesthetics.foodbank_name)}
     >
       {aesthetics.button_icon_back && (
         <img
@@ -60,7 +63,7 @@ const BackButton: React.FC<BackButtonProps> = ({
           aria-hidden="true"
         />
       )}
-      {label}
+      {formatTranslations(label)}
     </button>
   );
 };

@@ -40,6 +40,17 @@
     "button_icon_next": "",
     "button_icon_skip": "",
 
+    /* Button Icon Sizes
+    Controls the rendered height of each button's icon image; width scales automatically.
+    Accepts any CSS length (e.g. "24px", "2rem", "1em").
+    Useful when the icon image has extra transparent padding and needs to be scaled down.
+    */
+    "button_icon_size_start": "46px",
+    "button_icon_size_submit": "46px",
+    "button_icon_size_back": "1em",
+    "button_icon_size_next": "1em",
+    "button_icon_size_skip": "1em",
+
     /* Button Font Sizes
     Each button has its own font size. Accepts any CSS length (e.g. "16px", "1rem").
     Start and Submit use the dramatic font at a large size by default.
@@ -75,6 +86,13 @@
     "regular_button_font": "Reddit Sans",
     "form_heading_font": "Lato",
     "form_heading_font_size": "18px",
+
+    /* App Bar
+    The app bar spans the full screen width and sits at the top of every page.
+    Its text content is pulled from the cIntakeInfoHeader translation key.
+    background uses secondary_color, text uses info_text_color, font uses form_heading_font.
+    */
+    "appbar_height": "40px",
 
     /* Other */
     "corner_radius": "8px"

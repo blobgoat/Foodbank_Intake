@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { type JSX } from "react";
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json'
 import React from "react";
 
@@ -20,7 +20,8 @@ import React from "react";
 export function formatTranslations(translation: string | string[]): JSX.Element | JSX.Element[] {
   let workableTranslation: string[] = (Array.isArray(translation)) ? translation : [translation];
 
-  const formattedTranslation: JSX.Element[] = workableTranslation.map((line, _index) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const formattedTranslation: JSX.Element[] = workableTranslation.map((line: string, _index: number) => {
     // just put a span around the lin for now
     //find any <Name> and replace with Foodbank Name
     return formatTranslation(line, aesthetics.foodbank_name).element
@@ -49,7 +50,7 @@ export function formatTranslation(
 
   const lines = translation.split('\n');
 
-  const formattedLines = lines.map((line, lineIndex) => {
+  const formattedLines = lines.map((line: string, lineIndex: number) => {
     const parts: React.ReactNode[] = [];
     let remaining = line.replace(/<name>/gi, foodbankName);
 

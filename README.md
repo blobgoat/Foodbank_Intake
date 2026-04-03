@@ -87,7 +87,7 @@ Note: currently there are only two planned API calls
 
 ## Getting Started
 
-- Node.js 18+
+- Node.js 24+
 - npm 8+
 - TypeScript 5.9+
 - React 19.2+

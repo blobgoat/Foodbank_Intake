@@ -36,6 +36,6 @@
 }
 
 .submit-button__icon {
-  height: 46px;
+  height: var(--button-icon-size);
   width: auto;
 }

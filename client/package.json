@@ -12,7 +12,7 @@
     "react-dom": "^19.2.4",
     "react-router-dom": "^6.30.3",
     "react-scripts": "^0.0.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^5.2.0"
   },
   "scripts": {
     "dev": "vite",
@@ -20,13 +20,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "test:run": "vitest run"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "test:run": "vitest run",
+    "lint": "eslint src --max-warnings 0",
+    "lint:fix": "eslint src --fix",
+    "typecheck": "tsc -p src/tsconfig.app.json --noEmit"
   },
   "proxy": "http://localhost:3001",
   "browserslist": {
@@ -42,12 +39,19 @@
     ]
   },
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "@tailwindcss/vite": "^4.2.1",
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.5.2",
     "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
     "@vitejs/plugin-react": "^4.7.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
     "jsdom": "^26.1.0",
     "tailwindcss": "^4.2.1",
+    "typescript": "^6.0.2",
     "vite": "^6.4.1",
     "vitest": "^4.1.0"
   }

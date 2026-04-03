@@ -10,10 +10,16 @@
         "typeRoots": [
             "./node_modules/@types"
         ],
+        "types": [
+            "node"
+        ],
         /* Linting */
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noImplicitOverride": true,
+        "exactOptionalPropertyTypes": true,
         "erasableSyntaxOnly": true,
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true

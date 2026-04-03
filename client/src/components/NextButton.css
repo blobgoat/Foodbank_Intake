@@ -31,6 +31,6 @@
 }
 
 .next-button__icon {
-  height: 1em;
+  height: var(--button-icon-size);
   width: auto;
 }
