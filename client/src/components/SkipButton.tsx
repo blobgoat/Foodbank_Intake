@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { translationAPI } from '../../../modifiable_content/translationAPI';
+import englishText from '../../../modifiable_content/English/english_standard_text.generated.json';
 import { formatTranslations } from '../../../server/src/utils/utils';
 import { toPlainText } from '../utils/utils';
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json';
@@ -19,7 +19,7 @@ interface SkipButtonProps {
 const SkipButton: React.FC<SkipButtonProps> = ({
   to,
   onClick,
-  label = `${translationAPI.getStandardTranslation().cSkipButton} →`,
+  label = `${englishText.cSkipButton} →`,
   disabled = false,
 }: SkipButtonProps) => {
   const navigate = useNavigate();

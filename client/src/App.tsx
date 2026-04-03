@@ -10,7 +10,7 @@ import type { JSX } from 'react/jsx-dev-runtime';
 //TODO: add more pages as we are more certain of the dynamics of the app. For now, we can just have the home page and the new intake form.
 function App(): JSX.Element {
   return (
-    <Router>
+    <Router basename="/LynwoodFoodbankIntake">
       <div className="App">
         <AppBar />
         {/* <NavBar /> */}

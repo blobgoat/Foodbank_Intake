@@ -80,7 +80,7 @@ export default [
     },
 
     {
-        files: ['server/**/*.ts', 'server/**/*.tsx'],
+        files: ['server/**/*.ts', 'server/**/*.tsx', 'modifiable_content/**/*.ts', 'modifiable_content/**/*.tsx'],
         languageOptions: {
             parser: tsParser,
             parserOptions: {
