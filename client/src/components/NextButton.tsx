@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translationAPI } from '../../../modifiable_content/translationAPI';
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json';
-import './BackButton.css';
+import './NextButton.css';
 
-interface BackButtonProps {
-  /** Path to navigate to. Defaults to the previous page in browser history. */
+interface NextButtonProps {
+  /** Path to navigate to when clicked. */
   to?: string;
   /** Custom click handler. If provided alongside `to`, this runs first. */
   onClick?: () => void;
@@ -14,10 +14,10 @@ interface BackButtonProps {
   disabled?: boolean;
 }
 
-const BackButton: React.FC<BackButtonProps> = ({
+const NextButton: React.FC<NextButtonProps> = ({
   to,
   onClick,
-  label = `← ${translationAPI.getStandardTranslation().cBackButton}`,
+  label = `${translationAPI.getStandardTranslation().cNextButton} →`,
   disabled = false,
 }) => {
   const navigate = useNavigate();
@@ -26,7 +26,6 @@ const BackButton: React.FC<BackButtonProps> = ({
     if (disabled) return;
     if (onClick) onClick();
     if (to) navigate(to);
-    else navigate(-1);
   };
 
   const cssVars = {
@@ -39,30 +38,30 @@ const BackButton: React.FC<BackButtonProps> = ({
     '--button-border-width':   aesthetics.button_border_width,
     '--button-radius':         aesthetics.corner_radius,
     '--button-font':           aesthetics.regular_button_font,
-    '--button-font-size':      aesthetics.button_font_size_back,
-    '--button-width':          aesthetics.button_width_back,
-    '--button-height':         aesthetics.button_height_back,
+    '--button-font-size':      aesthetics.button_font_size_next,
+    '--button-width':          aesthetics.button_width_next,
+    '--button-height':         aesthetics.button_height_next,
   } as React.CSSProperties;
 
   return (
     <button
-      className="back-button"
+      className="next-button"
       style={cssVars}
       onClick={handleClick}
       disabled={disabled}
       aria-label={label}
     >
-      {aesthetics.button_icon_back && (
+      {label}
+      {aesthetics.button_icon_next && (
         <img
-          className="back-button__icon"
-          src={aesthetics.button_icon_back}
+          className="next-button__icon"
+          src={aesthetics.button_icon_next}
           alt=""
           aria-hidden="true"
         />
       )}
-      {label}
     </button>
   );
 };
 
-export default BackButton;
+export default NextButton;

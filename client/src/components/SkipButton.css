@@ -1,0 +1,39 @@
+.skip-button {
+  background-color: transparent;
+  color: var(--button-color-static);
+  border: var(--button-border-width) solid var(--button-border-color);
+  border-radius: var(--button-radius);
+  font-family: var(--button-font), sans-serif;
+  font-size: var(--button-font-size);
+  width: var(--button-width);
+  height: var(--button-height);
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.6rem 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.skip-button:hover:not(:disabled) {
+  background-color: var(--button-color-static);
+  color: var(--button-color-text);
+}
+
+.skip-button:active:not(:disabled) {
+  background-color: var(--button-color-hover);
+  color: var(--button-color-text);
+  border-color: var(--button-color-hover);
+}
+
+.skip-button:disabled {
+  color: var(--button-color-disabled);
+  border-color: var(--button-color-disabled);
+  cursor: not-allowed;
+}
+
+.skip-button__icon {
+  height: 1em;
+  width: auto;
+}

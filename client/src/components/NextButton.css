@@ -1,4 +1,4 @@
-.back-button {
+.next-button {
   background-color: var(--button-color-static);
   color: var(--button-color-text);
   border: var(--button-border-width) solid var(--button-border-color);
@@ -7,30 +7,30 @@
   font-size: var(--button-font-size);
   width: var(--button-width);
   height: var(--button-height);
+  font-weight: 600;
   cursor: pointer;
-  padding: 0.4rem 1rem;
-  margin-bottom: 1rem;
+  padding: 0.6rem 1.6rem;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   transition: background-color 0.2s;
 }
 
-.back-button:hover:not(:disabled) {
+.next-button:hover:not(:disabled) {
   background-color: var(--button-color-hover);
 }
 
-.back-button:active:not(:disabled) {
+.next-button:active:not(:disabled) {
   background-color: var(--button-color-active);
 }
 
-.back-button:disabled {
+.next-button:disabled {
   background-color: var(--button-color-disabled);
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.back-button__icon {
+.next-button__icon {
   height: 1em;
   width: auto;
 }

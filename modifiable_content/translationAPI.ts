@@ -35,5 +35,6 @@ export const translationAPI: {
             throw new Error(`Unsupported language: ${newLanguage}`);
         }
         this.currentLanguage = newLanguage;
-    }
+    },
+
 } as const;

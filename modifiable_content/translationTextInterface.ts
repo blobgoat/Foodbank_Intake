@@ -1,7 +1,9 @@
 export interface StandardTextTranslation {
     //components
+    cStartButton: string;
     cBackButton: string;
     cNextButton: string;
+    cSkipButton: string;
     cSubmitButton: string;
     cIntakeInfoHeader: string;
 

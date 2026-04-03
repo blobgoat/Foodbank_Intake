@@ -27,9 +27,11 @@
         - No number = reusable component (e.g., buttons used on multiple pages)
     */
     /* Components*/
-    "cBackButton": "Back",
-    "cNextButton": "Next",
-    "cSubmitButton": "**Submit**",
+    "cStartButton": "**Empezar**",
+    "cBackButton": "Atrás",
+    "cNextButton": "Siguiente",
+    "cSkipButton": "Omitir",
+    "cSubmitButton": "**Enviar**",
     //the <Name> tag is here to enable easier translation, Please leave it in english, 
     // but feel free to reorder it in the sentence as needed for your language
     "cIntakeInfoHeader": "**<Name> Intake Form**",

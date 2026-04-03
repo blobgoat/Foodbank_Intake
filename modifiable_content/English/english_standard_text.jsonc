@@ -27,8 +27,10 @@
         - No number = reusable component (e.g., buttons used on multiple pages)
     */
     /* Components*/
+    "cStartButton": "**Start**",
     "cBackButton": "Back",
     "cNextButton": "Next",
+    "cSkipButton": "Skip",
     "cSubmitButton": "**Submit**",
     //the <Name> tag is here to enable easier translation, Please leave it in english, 
     // but feel free to reorder it in the sentence as needed for your language
