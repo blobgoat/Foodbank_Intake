@@ -46,6 +46,10 @@ jobs:
         working-directory: ./server
         run: npm run test:generate
 
+      - name: install linting dependencies
+        working-directory: ./
+        run: npm ci
+
       - name: Run Linting
         working-directory: ./
         run: npm run lint
