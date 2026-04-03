@@ -46,6 +46,10 @@ jobs:
         working-directory: ./server
         run: npm run test:generate
 
+      - name: Run Linting
+        working-directory: ./
+        run: npm run lint
+
       - name: Build Server
         working-directory: ./server
         run: npm run build
