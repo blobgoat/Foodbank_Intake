@@ -3,7 +3,7 @@ Welcome to the developer's manual. Here is everything you need to start contribu
 
 
 ## Tools
-The only requirement for this project is to have [Node.js](https://nodejs.org/en/download) installed. Instructions can be found in the link. Our project requires Node.js 18+ and has no guarantees for older versions. Instructions on how to install dependencies are under [Usage](#Usage)
+The only requirement for this project is to have [Node.js](https://nodejs.org/en/download) installed. Instructions can be found in the link. Our project requires Node.js 24+ and has no guarantees for older versions. Instructions on how to install dependencies are under [Usage](#Usage)
 
 ## Core Functionality
 The Foodbank Intake application guides food bank guests through a multi-step online intake form. Guests fill out personal and household information, dietary restrictions, and food bank-specific questions. On submission, data is sent to the backend API which processes and stores entries. The backend flags potentially duplicate or suspicious submissions for volunteer review. Volunteers can then review, correct, or approve entries through a separate volunteer interface.
@@ -80,6 +80,90 @@ npm run build
 ```
 The compiled output is placed in `server/build/`.
 
+
+### Linting & Type Checking
+
+The project uses **ESLint 9** with a flat config (`eslint.config.mjs` at the repository root). It covers both the `client/` and `server/` source trees in a single config file, using `@typescript-eslint` with full type-checked rules.
+
+To run the linter:
+```bash
+# from the repo root
+npx eslint .
+
+# or from inside client/ (uses the root config automatically)
+npm run lint          # fails on any warning — use this before pushing
+npm run lint:fix      # auto-fixes what it can
+```
+
+To run the TypeScript type checker without emitting files:
+```bash
+cd client
+npm run typecheck
+```
+
+**Key rules enforced:**
+
+- Every function must declare an explicit return type (`@typescript-eslint/explicit-function-return-type`). Arrow functions and higher-order functions that are typed at the call site are exempt.
+- All module boundary types must be explicit (`@typescript-eslint/explicit-module-boundary-types`).
+- `any` is banned — use a specific type or `unknown` (`@typescript-eslint/no-explicit-any`).
+- Type imports must use `import type` syntax (`@typescript-eslint/consistent-type-imports`).
+- Unsafe operations (`no-unsafe-assignment`, `no-unsafe-return`, `no-unsafe-call`, `no-unsafe-member-access`, `no-unsafe-argument`) are all errors.
+- Floating promises and misused async patterns are errors (`no-floating-promises`, `no-misused-promises`, `await-thenable`).
+
+**What is excluded from linting:** `node_modules/`, `build/`, `dist/`, `coverage/`, `__test__/` directories, `vite.config.ts`, `vite-env.d.ts`, `reportWebVitals.ts`, and `eslint.config.mjs` itself.
+
+The `npm run lint` script passes `--max-warnings 0`, so any warning is treated as a failure. Fix all lint issues before opening a pull request.
+
+---
+
+### Adding a New Page
+
+The intake flow is built with React Router. Each step in the form is a separate page component registered as a route in `App.tsx`. Adding a new page is a three-step process.
+
+**1. Create the page component**
+
+Add a new `.tsx` file under `client/src/pages/`. Name it after the step it represents (e.g. `HouseholdInfo.tsx`). Follow the same pattern as `Start.tsx`:
+
+- Use `React.FC` with an explicit `JSX.Element` return type.
+- Pull display text from the appropriate `*.generated.json` translation file via a static `import`.
+- Pull styling values from `modifiable_content/foodbank_aesthetics.generated.json`.
+- Use shared components from `client/src/components/` (e.g. `<BackButton />`, `<NextButton />`) for navigation.
+
+```tsx
+import React from 'react';
+import type { JSX } from 'react';
+import BackButton from '../components/BackButton';
+
+const HouseholdInfo: React.FC = (): JSX.Element => {
+  return (
+    <div>
+      {/* page content */}
+      <BackButton />
+    </div>
+  );
+};
+
+export default HouseholdInfo;
+```
+
+**2. Register the route in `App.tsx`**
+
+Import your new component and add a `<Route>` inside the existing `<Routes>` block:
+
+```tsx
+import HouseholdInfo from './pages/HouseholdInfo';
+
+// inside <Routes>:
+<Route path="/household-info" element={<HouseholdInfo />} />
+```
+
+All routes are relative to the `basename="/LynwoodFoodbankIntake"` set on `<Router>`, so `/household-info` resolves to `/LynwoodFoodbankIntake/household-info` in the browser.
+
+**3. Update the pages README**
+
+Add a row to the table in `client/src/pages/README.md` documenting the new file, its route, and a short description.
+
+---
 
 ### Testing
 Both the client and server use **Vitest** for automated testing. To run the automated tests, `cd` into the server or client folder and run `npm run test`. For the client you can also run `npm run coverage` for a code coverage report.
