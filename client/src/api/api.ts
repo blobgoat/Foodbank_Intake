@@ -1,7 +1,7 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 
 const API_BASE_URL: string =
-  import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+  import.meta.env.VITE_API_URL as string;
 
 const api: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -15,14 +15,14 @@ export interface ClientData {
   // Add your client fields here, e.g.:
   // name: string;
   // email: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface IntakeData {
   // Add your intake fields here, e.g.:
   // clientId: string;
   // date: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // Clients

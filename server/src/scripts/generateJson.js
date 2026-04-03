@@ -42,6 +42,7 @@ function convertJsoncFile(inputPath) {
   const outputPath = inputPath.replace(/\.jsonc$/i, '.generated.json');
   fs.writeFileSync(outputPath, JSON.stringify(parsed, null, 2) + '\n', 'utf-8');
 
+  // eslint-disable-next-line no-undef
   console.log(`Generated: ${path.relative(projectRoot, outputPath)}`);
 }
 
@@ -53,6 +54,7 @@ function main() {
   const jsoncFiles = walk(targetRoot);
 
   if (jsoncFiles.length === 0) {
+    // eslint-disable-next-line no-undef
     console.log('No .jsonc files found.');
     return;
   }
@@ -61,6 +63,7 @@ function main() {
     convertJsoncFile(file);
   }
 
+  // eslint-disable-next-line no-undef
   console.log(`Done. Converted ${jsoncFiles.length} file(s).`);
 }
 

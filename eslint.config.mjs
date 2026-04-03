@@ -58,6 +58,7 @@ export default [
             "**/vite-env.d.ts",
             "**/vite.config.ts",
             "**/reportWebVitals.ts",
+            "**/__test__/**",
         ],
     },
 

@@ -2,7 +2,7 @@ import { describe, test, expect, vi } from "vitest";
 import { BLANK_DISABLED_CONTENT } from "../../generated/blankDisabledContent";
 import { BLANK_MUTABLE_TEXT_TRANSLATION } from "../../generated/blankMutableTextTranslation";
 import { BLANK_STANDARD_TEXT_TRANSLATION } from "../../generated/blankStandardTextTranslation";
-import { DisabledQuestionsAndPages, MutableTextTranslation, StandardTextTranslation } from "../../../modifiable_content/translationTextInterface";
+import type { DisabledQuestionsAndPages, MutableTextTranslation, StandardTextTranslation } from "../../../modifiable_content/translationTextInterface";
 import { validateKeyNaming } from "../utils/testUtils";
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json'
 import { formatTranslations } from '../utils/utils'
@@ -99,6 +99,7 @@ describe.each([
         })
         //want to test that the console is not currently logging any invalid keys
         test(`The test:"${message}" should not log anything`, () => {
+            // eslint-disable-next-line no-undef
             const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
             validateKeyNaming(content, 'test content');
             expect(consoleSpy).not.toHaveBeenCalled();
