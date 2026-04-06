@@ -44,6 +44,7 @@ const StartButton: React.FC<StartButtonProps> = ({
     '--button-width': aesthetics.button_width_start,
     '--button-height': aesthetics.button_height_start,
     '--button-icon-size': aesthetics.button_icon_size_start,
+    '--button-border-margin': String(aesthetics.button_border_margin)
   } as React.CSSProperties;
 
   return (

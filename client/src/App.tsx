@@ -12,6 +12,7 @@ function App(): JSX.Element {
   return (
     <Router basename="/LynwoodFoodbankIntake">
       <div className="App">
+        {/* AppBar is the bar at the top of the page, it should be consistent across all pages, but doesnt have any reactive components */}
         <AppBar />
         {/* <NavBar /> */}
         <main className="main-content">
