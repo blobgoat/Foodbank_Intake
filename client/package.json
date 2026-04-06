@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -16,7 +17,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "start": "vite",
+    "generate": "cd .. && cd server && npm run generate:json && cd .. && cd client",
+    "start": "npm run generate && vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",

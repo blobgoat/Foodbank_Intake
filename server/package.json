@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "start": "node build/server/index.js",
-    "build": "tsc -b tsconfig.build.json",
+    "build": "npm run generate &&tsc -b tsconfig.build.json",
     "clean": "tsc -p tsconfig.build.json --clean",
     "preview": "vite preview",
     "test:debug": "node --inspect-brk && npm run test",
