@@ -7,8 +7,10 @@
     Saturation and hue are only adjustable in the codebase — see components/ for usage.
     */
     "primary_color": "247013",
-    "secondary_color": "8DC75B",
-    "background_color": "F4F7F4",
+    //these are rgb values same as "8DC75B"
+    "secondary_color": "144, 199, 91",
+    //these are rgb values same as #F4F7F4
+    "background_color": "244, 247, 244",
     "info_text_color": "000000",
     /* Button Colors
     All buttons draw from the same color palette.
@@ -41,7 +43,7 @@
     Accepts any CSS length (e.g. "24px", "2rem", "1em").
     Useful when the icon image has extra transparent padding and needs to be scaled down.
     */
-    "button_icon_size_start": "76px",
+    "button_icon_size_start": "60px",
     "button_icon_size_submit": "46px",
     "button_icon_size_back": "1em",
     "button_icon_size_next": "1em",
@@ -50,7 +52,7 @@
     Each button has its own font size. Accepts any CSS length (e.g. "16px", "1rem").
     Start and Submit use the dramatic font at a large size by default.
     */
-    "button_font_size_start": "120px",
+    "button_font_size_start": "80px",
     "button_font_size_submit": "120px",
     "button_font_size_back": "15px",
     "button_font_size_next": "16px",
@@ -63,9 +65,9 @@
     At narrower viewports the button shrinks proportionally down to 50% of the authored size.
     Set button_scale_reference_width to match the viewport width you designed the layout for.
     */
-    "button_scale_reference_width": 337,
+    "button_scale_reference_width": 360,
     //START button
-    "button_width_start": "335px",
+    "button_width_start": "250px",
     "button_height_start": "106px",
     "button_width_submit": "335px",
     "button_height_submit": "106px",
