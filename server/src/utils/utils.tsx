@@ -7,20 +7,25 @@ import React from "react";
 /**
  * This function takes a raw string with potential formatting and returns a JSX element.
  * Supported tokens:
- *    - "\n"           → line break between regular lines
- *    - "*text*"       → <em>text</em>
- *    - "**text**"     → <strong>text</strong>
- *    - "***text***"   → <strong><em>text</em></strong>
- *    - "<name>"       → foodbank / brand name
- *    - "/b text"      → bullet-point list item  (consecutive /b lines → one <ul>)
- *    - "/l text"      → numbered list item       (consecutive /l lines → one <ol>)
+ *    - "\n"            → line break between regular lines
+ *    - "*text*"        → <em>text</em>
+ *    - "**text**"      → <strong>text</strong>
+ *    - "***text***"    → <strong><em>text</em></strong>
+ *    - "<name>"        → foodbank / brand name
+ *    - "/b text"       → bullet-point list item  (consecutive /b lines → one <ul>)
+ *    - "/l1 text"      → numbered list item with explicit number 1
+ *    - "/l2 text"      → numbered list item with explicit number 2
+ *    - "/lN text"      → numbered list item with explicit number N (any integer ≥ 0)
  *
- * List tokens must appear at the very start of a line followed by a space and the item
- * content (e.g. "/b First item").  Inline formatting (*bold*, etc.) works inside list
- * items too.  Consecutive lines of the same list type are grouped into a single <ul> or
- * <ol>; mixing /b and /l on adjacent lines produces separate lists.
+ * The number in /lN is required — "/l" with no digit immediately after is a validation
+ * error.  This lets authors control numbering explicitly without needing flags.
  *
- * The returned element is wrapped in a <span>.
+ * List tokens must appear at the very start of a line.  Inline formatting (*bold*, etc.)
+ * works inside list items.  Consecutive lines of the same list type are grouped into a
+ * single <ul> or <ol>; mixing /b and /lN on adjacent lines produces separate lists.
+ *
+ * The returned element is wrapped in a <span class="fmt">.  The .fmt class carries CSS
+ * that restores proper list rendering (disc bullets, decimal numbers, indentation).
  *
  * @param rawTranslation - the raw translation string
  * @returns JSX.Element | JSX.Element[]
@@ -42,14 +47,25 @@ type LineKind = 'regular' | 'bullet' | 'ordered';
 
 /** Classify a raw source line. */
 function lineKind(line: string): LineKind {
-  if (/^\/b(\s|$)/.test(line)) return 'bullet';
-  if (/^\/l(\s|$)/.test(line)) return 'ordered';
+  if (/^\/b(\s|$)/.test(line))     return 'bullet';
+  if (/^\/l\d+(\s|$)/.test(line))  return 'ordered';
   return 'regular';
 }
 
-/** Strip the /b or /l prefix (and the trailing space) from a list line. */
-function listContent(line: string): string {
-  return line.replace(/^\/[bl]\s*/, '');
+/** Strip the /b prefix (and optional space) from a bullet line. */
+function bulletContent(line: string): string {
+  return line.replace(/^\/b\s*/, '');
+}
+
+/** Extract the explicit list number from a /lN line. */
+function orderedNum(line: string): number {
+  const match = /^\/l(\d+)/.exec(line);
+  return match ? parseInt(match[1], 10) : 1;
+}
+
+/** Strip the /lN prefix (and optional space) from an ordered-list line. */
+function orderedContent(line: string): string {
+  return line.replace(/^\/l\d+\s*/, '');
 }
 
 /**
@@ -132,7 +148,7 @@ export function formatTranslation(
         <ul key={`seg-${segIndex}`}>
           {seg.lines.map((line: string, lineIndex: number) => (
             <li key={lineIndex}>
-              {formatInline(listContent(line), foodbankName, `${segIndex}-${lineIndex}`)}
+              {formatInline(bulletContent(line), foodbankName, `${segIndex}-${lineIndex}`)}
             </li>
           ))}
         </ul>
@@ -141,8 +157,8 @@ export function formatTranslation(
       rendered.push(
         <ol key={`seg-${segIndex}`}>
           {seg.lines.map((line: string, lineIndex: number) => (
-            <li key={lineIndex}>
-              {formatInline(listContent(line), foodbankName, `${segIndex}-${lineIndex}`)}
+            <li key={lineIndex} value={orderedNum(line)}>
+              {formatInline(orderedContent(line), foodbankName, `${segIndex}-${lineIndex}`)}
             </li>
           ))}
         </ol>
@@ -162,7 +178,7 @@ export function formatTranslation(
   });
 
   return {
-    element: <span>{rendered}</span>,
+    element: <span className="fmt">{rendered}</span>,
     invalidTokens,
   };
 }
@@ -176,8 +192,10 @@ type TranslationValidationResult = {
 
 /**
  * Validates a translation string for malformed tokens.
- * Invalid tokens: bare "<" / ">" (not part of <name>), unclosed asterisk groups.
- * List prefixes (/b, /l) are valid and do not need escaping.
+ * Invalid tokens:
+ *   - bare "<" / ">" not part of <name>
+ *   - unclosed asterisk groups
+ *   - "/l" not immediately followed by a digit (e.g. "/l text" instead of "/l1 text")
  */
 export function validateTranslationString(raw: string): TranslationValidationResult {
   const invalidTokens: string[] = [];
@@ -186,6 +204,15 @@ export function validateTranslationString(raw: string): TranslationValidationRes
 
   if (protectedRaw.includes('<')) invalidTokens.push('<');
   if (protectedRaw.includes('>')) invalidTokens.push('>');
+
+  // /l must be followed immediately by a digit — "/l text" or bare "/l" is an error
+  for (const line of raw.split('\n')) {
+    if (/^\/l(?!\d)/.test(line)) {
+      invalidTokens.push(
+        `Ordered list token "/l" must be immediately followed by a number (e.g. /l1, /l2). Got: "${line.split(' ')[0]}"`
+      );
+    }
+  }
 
   // *** must be closed
   const triplePattern = /\*\*\*(.+?)\*\*\*/g;

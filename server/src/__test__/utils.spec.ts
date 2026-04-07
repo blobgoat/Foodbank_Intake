@@ -124,33 +124,33 @@ describe.each([
 //testing to makesure formating the strings utitlity function is working correctly
 describe.each([
     //no translations, just it accepts strings
-    { translation: 'Welcome to the Foodbank!', expected: '<span>Welcome to the Foodbank!</span>', message: 'simple string with no place holders', valid: true },
-    { translation: '', expected: '<span></span>', message: 'empty string', valid: true },
+    { translation: 'Welcome to the Foodbank!', expected: '<span class="fmt">Welcome to the Foodbank!</span>', message: 'simple string with no place holders', valid: true },
+    { translation: '', expected: '<span class="fmt"></span>', message: 'empty string', valid: true },
 
     //<name> placeholder
 
-    { translation: 'Welcome to the <name>!', expected: `<span>Welcome to the ${aesthetics.foodbank_name}!</span>`, message: 'name placeholder lowercase', valid: true },
-    { translation: 'Welcome to the <NAME>!', expected: `<span>Welcome to the ${aesthetics.foodbank_name}!</span>`, message: 'name placeholder uppercase', valid: true },
+    { translation: 'Welcome to the <name>!', expected: `<span class="fmt">Welcome to the ${aesthetics.foodbank_name}!</span>`, message: 'name placeholder lowercase', valid: true },
+    { translation: 'Welcome to the <NAME>!', expected: `<span class="fmt">Welcome to the ${aesthetics.foodbank_name}!</span>`, message: 'name placeholder uppercase', valid: true },
 
     //italics
-    { translation: 'Welcome to the *Foodbank*!', expected: `<span>Welcome to the <em>Foodbank</em>!</span>`, message: 'italics placeholder', valid: true },
-    { translation: 'Welcome to the *Foodbank* and enjoy your stay at the *Foodbank*!', expected: `<span>Welcome to the <em>Foodbank</em> and enjoy your stay at the <em>Foodbank</em>!</span>`, message: 'multiple italics placeholders', valid: true },
-    { translation: 'Welcome to the *Foodbank and enjoy your stay*!', expected: `<span>Welcome to the <em>Foodbank and enjoy your stay</em>!</span>`, message: 'one long italics placeholder', valid: true },
+    { translation: 'Welcome to the *Foodbank*!', expected: `<span class="fmt">Welcome to the <em>Foodbank</em>!</span>`, message: 'italics placeholder', valid: true },
+    { translation: 'Welcome to the *Foodbank* and enjoy your stay at the *Foodbank*!', expected: `<span class="fmt">Welcome to the <em>Foodbank</em> and enjoy your stay at the <em>Foodbank</em>!</span>`, message: 'multiple italics placeholders', valid: true },
+    { translation: 'Welcome to the *Foodbank and enjoy your stay*!', expected: `<span class="fmt">Welcome to the <em>Foodbank and enjoy your stay</em>!</span>`, message: 'one long italics placeholder', valid: true },
 
     //bold
-    { translation: 'Welcome to the **Foodbank**!', expected: `<span>Welcome to the <strong>Foodbank</strong>!</span>`, message: 'single word bold placeholder', valid: true },
-    { translation: 'Welcome to the **Foodbank** and enjoy your stay at the **Foodbank**!', expected: `<span>Welcome to the <strong>Foodbank</strong> and enjoy your stay at the <strong>Foodbank</strong>!</span>`, message: 'multiple bold placeholders', valid: true },
-    { translation: 'Welcome to the **Foodbank and enjoy your stay**!', expected: `<span>Welcome to the <strong>Foodbank and enjoy your stay</strong>!</span>`, message: 'one long bold placeholder', valid: true },
+    { translation: 'Welcome to the **Foodbank**!', expected: `<span class="fmt">Welcome to the <strong>Foodbank</strong>!</span>`, message: 'single word bold placeholder', valid: true },
+    { translation: 'Welcome to the **Foodbank** and enjoy your stay at the **Foodbank**!', expected: `<span class="fmt">Welcome to the <strong>Foodbank</strong> and enjoy your stay at the <strong>Foodbank</strong>!</span>`, message: 'multiple bold placeholders', valid: true },
+    { translation: 'Welcome to the **Foodbank and enjoy your stay**!', expected: `<span class="fmt">Welcome to the <strong>Foodbank and enjoy your stay</strong>!</span>`, message: 'one long bold placeholder', valid: true },
 
     //bold and italics
-    { translation: 'Welcome to the ***Foodbank***!', expected: `<span>Welcome to the <strong><em>Foodbank</em></strong>!</span>`, message: 'single word bold and italics placeholder', valid: true },
-    { translation: 'Welcome to the ***Foodbank*** and enjoy your stay at the ***Foodbank***!', expected: `<span>Welcome to the <strong><em>Foodbank</em></strong> and enjoy your stay at the <strong><em>Foodbank</em></strong>!</span>`, message: 'multiple bold and italics placeholders', valid: true },
-    { translation: 'Welcome to the ***Foodbank and enjoy your stay***!', expected: `<span>Welcome to the <strong><em>Foodbank and enjoy your stay</em></strong>!</span>`, message: 'one long bold and italics placeholder', valid: true },
+    { translation: 'Welcome to the ***Foodbank***!', expected: `<span class="fmt">Welcome to the <strong><em>Foodbank</em></strong>!</span>`, message: 'single word bold and italics placeholder', valid: true },
+    { translation: 'Welcome to the ***Foodbank*** and enjoy your stay at the ***Foodbank***!', expected: `<span class="fmt">Welcome to the <strong><em>Foodbank</em></strong> and enjoy your stay at the <strong><em>Foodbank</em></strong>!</span>`, message: 'multiple bold and italics placeholders', valid: true },
+    { translation: 'Welcome to the ***Foodbank and enjoy your stay***!', expected: `<span class="fmt">Welcome to the <strong><em>Foodbank and enjoy your stay</em></strong>!</span>`, message: 'one long bold and italics placeholder', valid: true },
 
     //combinations of bold and bold and italics and name placeholder
-    { translation: 'Welcome to the ***<name>***!', expected: `<span>Welcome to the <strong><em>${aesthetics.foodbank_name}</em></strong>!</span>`, message: 'name placeholder with bold and italics', valid: true },
-    { translation: 'Welcome to the **<name>** and enjoy your stay at the *<name>*!', expected: `<span>Welcome to the <strong>${aesthetics.foodbank_name}</strong> and enjoy your stay at the <em>${aesthetics.foodbank_name}</em>!</span>`, message: 'multiple name placeholders with bold and italics', valid: true },
-    { translation: 'Welcome to the ***<name>* and enjoy your stay**!', expected: `<span>Welcome to the <strong><em>${aesthetics.foodbank_name}</em> and enjoy your stay</strong>!</span>`, message: 'disjointed italics and bold, some covering some not, shouldnt support this', valid: false },
+    { translation: 'Welcome to the ***<name>***!', expected: `<span class="fmt">Welcome to the <strong><em>${aesthetics.foodbank_name}</em></strong>!</span>`, message: 'name placeholder with bold and italics', valid: true },
+    { translation: 'Welcome to the **<name>** and enjoy your stay at the *<name>*!', expected: `<span class="fmt">Welcome to the <strong>${aesthetics.foodbank_name}</strong> and enjoy your stay at the <em>${aesthetics.foodbank_name}</em>!</span>`, message: 'multiple name placeholders with bold and italics', valid: true },
+    { translation: 'Welcome to the ***<name>* and enjoy your stay**!', expected: `<span class="fmt">Welcome to the <strong><em>${aesthetics.foodbank_name}</em> and enjoy your stay</strong>!</span>`, message: 'disjointed italics and bold, some covering some not, shouldnt support this', valid: false },
 
     //invalid cases
     { translation: 'Welcome to the **Foodbank!', expected: '', message: 'unclosed bold placeholder', valid: false },
@@ -162,26 +162,31 @@ describe.each([
     { translation: 'Welcome to the <span>Foodbank</span>!', expected: ``, message: 'html injection attempt with span tags', valid: false },
 
     // /b bullet-point list items
-    { translation: '/b First item', expected: '<span><ul><li>First item</li></ul></span>', message: 'single bullet item', valid: true },
-    { translation: '/b First item\n/b Second item\n/b Third item', expected: '<span><ul><li>First item</li><li>Second item</li><li>Third item</li></ul></span>', message: 'multiple bullet items grouped into one ul', valid: true },
-    { translation: '/b **Bold item**', expected: '<span><ul><li><strong>Bold item</strong></li></ul></span>', message: 'bullet item with bold formatting', valid: true },
-    { translation: '/b Item with <name>', expected: `<span><ul><li>Item with ${aesthetics.foodbank_name}</li></ul></span>`, message: 'bullet item with name placeholder', valid: true },
+    { translation: '/b First item', expected: '<span class="fmt"><ul><li>First item</li></ul></span>', message: 'single bullet item', valid: true },
+    { translation: '/b First item\n/b Second item\n/b Third item', expected: '<span class="fmt"><ul><li>First item</li><li>Second item</li><li>Third item</li></ul></span>', message: 'multiple bullet items grouped into one ul', valid: true },
+    { translation: '/b **Bold item**', expected: '<span class="fmt"><ul><li><strong>Bold item</strong></li></ul></span>', message: 'bullet item with bold formatting', valid: true },
+    { translation: '/b Item with <name>', expected: `<span class="fmt"><ul><li>Item with ${aesthetics.foodbank_name}</li></ul></span>`, message: 'bullet item with name placeholder', valid: true },
 
-    // /l ordered list items
-    { translation: '/l First step', expected: '<span><ol><li>First step</li></ol></span>', message: 'single ordered list item', valid: true },
-    { translation: '/l First step\n/l Second step\n/l Third step', expected: '<span><ol><li>First step</li><li>Second step</li><li>Third step</li></ol></span>', message: 'multiple ordered items grouped into one ol', valid: true },
-    { translation: '/l *Italic step*', expected: '<span><ol><li><em>Italic step</em></li></ol></span>', message: 'ordered item with italic formatting', valid: true },
+    // /lN ordered list items — number is explicit and required
+    { translation: '/l1 First step', expected: '<span class="fmt"><ol><li value="1">First step</li></ol></span>', message: 'single ordered list item with explicit number', valid: true },
+    { translation: '/l1 First step\n/l2 Second step\n/l3 Third step', expected: '<span class="fmt"><ol><li value="1">First step</li><li value="2">Second step</li><li value="3">Third step</li></ol></span>', message: 'multiple ordered items grouped into one ol with explicit numbers', valid: true },
+    { translation: '/l1 *Italic step*', expected: '<span class="fmt"><ol><li value="1"><em>Italic step</em></li></ol></span>', message: 'ordered item with italic formatting', valid: true },
+    { translation: '/l5 Jump to five', expected: '<span class="fmt"><ol><li value="5">Jump to five</li></ol></span>', message: 'ordered item with non-sequential number', valid: true },
+
+    // /l without a number is an error
+    { translation: '/l No number', expected: '', message: '/l without a number immediately after is invalid', valid: false },
+    { translation: '/l', expected: '', message: 'bare /l with no number or content is invalid', valid: false },
 
     // mixed regular text and lists
-    { translation: 'Intro text\n/b Item one\n/b Item two', expected: '<span>Intro text<ul><li>Item one</li><li>Item two</li></ul></span>', message: 'regular line followed by bullet list', valid: true },
-    { translation: '/b Item one\n/b Item two\nOutro text', expected: '<span><ul><li>Item one</li><li>Item two</li></ul>Outro text</span>', message: 'bullet list followed by regular line', valid: true },
-    { translation: 'Intro\n/b Bullet\nMiddle\n/l Step\nOutro', expected: '<span>Intro<ul><li>Bullet</li></ul>Middle<ol><li>Step</li></ol>Outro</span>', message: 'interleaved regular text, bullet list, and ordered list', valid: true },
+    { translation: 'Intro text\n/b Item one\n/b Item two', expected: '<span class="fmt">Intro text<ul><li>Item one</li><li>Item two</li></ul></span>', message: 'regular line followed by bullet list', valid: true },
+    { translation: '/b Item one\n/b Item two\nOutro text', expected: '<span class="fmt"><ul><li>Item one</li><li>Item two</li></ul>Outro text</span>', message: 'bullet list followed by regular line', valid: true },
+    { translation: 'Intro\n/b Bullet\nMiddle\n/l1 Step\nOutro', expected: '<span class="fmt">Intro<ul><li>Bullet</li></ul>Middle<ol><li value="1">Step</li></ol>Outro</span>', message: 'interleaved regular text, bullet list, and ordered list', valid: true },
 
-    // /b and /l on adjacent lines produce separate lists
-    { translation: '/b Bullet item\n/l Ordered item', expected: '<span><ul><li>Bullet item</li></ul><ol><li>Ordered item</li></ol></span>', message: 'bullet and ordered on adjacent lines produce separate lists', valid: true },
+    // /b and /lN on adjacent lines produce separate lists
+    { translation: '/b Bullet item\n/l1 Ordered item', expected: '<span class="fmt"><ul><li>Bullet item</li></ul><ol><li value="1">Ordered item</li></ol></span>', message: 'bullet and ordered on adjacent lines produce separate lists', valid: true },
 
-    // /b or /l mid-line (not at line start) is treated as regular text
-    { translation: 'Text with /b in the middle', expected: '<span>Text with /b in the middle</span>', message: '/b mid-line is treated as regular text', valid: true },
+    // /b or /lN mid-line (not at line start) is treated as regular text
+    { translation: 'Text with /b in the middle', expected: '<span class="fmt">Text with /b in the middle</span>', message: '/b mid-line is treated as regular text', valid: true },
 
 ])('formatTranslation test', ({ translation, expected, message, valid }) => {
     if (valid) {
