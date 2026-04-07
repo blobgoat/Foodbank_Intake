@@ -5,34 +5,94 @@ import React from "react";
 
 
 /**
- * This function takes a raw string with potential formatting and return a HTML string.
- * Currently in functionality you should expect
- *    -"\n" to be replaced with line break
- *    -"*text*" to be replaced with <em>text</em>
- *    -"**text**" to be replaced with <strong>text</strong>
- *    -"***text***" to be replaced with <strong><em>text</em></strong>
- *    - "<name>" to be replaced with foodbank or brand name 
- * and the jsx element with be surrounded by <span>
- * @param rawTranslation - the raw translation string that may contain placeholders for formatting
- * @returns a JSX element array where the placeholders in the raw translation string are replaced with the appropriate JSX elements.
- *       or it returns a single JSX element if there is only one line in the translation string 
+ * This function takes a raw string with potential formatting and returns a JSX element.
+ * Supported tokens:
+ *    - "\n"           → line break between regular lines
+ *    - "*text*"       → <em>text</em>
+ *    - "**text**"     → <strong>text</strong>
+ *    - "***text***"   → <strong><em>text</em></strong>
+ *    - "<name>"       → foodbank / brand name
+ *    - "/b text"      → bullet-point list item  (consecutive /b lines → one <ul>)
+ *    - "/l text"      → numbered list item       (consecutive /l lines → one <ol>)
+ *
+ * List tokens must appear at the very start of a line followed by a space and the item
+ * content (e.g. "/b First item").  Inline formatting (*bold*, etc.) works inside list
+ * items too.  Consecutive lines of the same list type are grouped into a single <ul> or
+ * <ol>; mixing /b and /l on adjacent lines produces separate lists.
+ *
+ * The returned element is wrapped in a <span>.
+ *
+ * @param rawTranslation - the raw translation string
+ * @returns JSX.Element | JSX.Element[]
  */
 export function formatTranslations(translation: string | string[]): JSX.Element | JSX.Element[] {
-  let workableTranslation: string[] = (Array.isArray(translation)) ? translation : [translation];
+  const workableTranslation: string[] = Array.isArray(translation) ? translation : [translation];
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const formattedTranslation: JSX.Element[] = workableTranslation.map((line: string, _index: number) => {
-    // just put a span around the lin for now
-    //find any <Name> and replace with Foodbank Name
-    return formatTranslation(line, aesthetics.foodbank_name).element
+    return formatTranslation(line, aesthetics.foodbank_name).element;
   });
   return formattedTranslation.length === 1 ? formattedTranslation[0] : formattedTranslation;
-
-
-
 }
 
-/**This is the result of formatting a translation string */
+// ── Internal helpers ────────────────────────────────────────────────────────
+
+/** The three kinds of content a single source line can represent. */
+type LineKind = 'regular' | 'bullet' | 'ordered';
+
+/** Classify a raw source line. */
+function lineKind(line: string): LineKind {
+  if (/^\/b(\s|$)/.test(line)) return 'bullet';
+  if (/^\/l(\s|$)/.test(line)) return 'ordered';
+  return 'regular';
+}
+
+/** Strip the /b or /l prefix (and the trailing space) from a list line. */
+function listContent(line: string): string {
+  return line.replace(/^\/[bl]\s*/, '');
+}
+
+/**
+ * Process inline formatting tokens (*italic*, **bold**, ***bold+italic***, <name>)
+ * within a single flat string and return an array of React nodes.
+ * keyPrefix must be unique within the surrounding render to avoid key collisions.
+ */
+function formatInline(text: string, foodbankName: string, keyPrefix: string): React.ReactNode[] {
+  const parts: React.ReactNode[] = [];
+  const remaining = text.replace(/<name>/gi, foodbankName);
+  const pattern = /(\*\*\*(.+?)\*\*\*)|(\*\*(.+?)\*\*)|(\*(.+?)\*)/g;
+
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let keyIndex = 0;
+
+  while ((match = pattern.exec(remaining)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(remaining.slice(lastIndex, match.index));
+    }
+
+    if (match[2] !== undefined) {
+      parts.push(<strong key={`${keyPrefix}-${keyIndex}`}><em>{match[2]}</em></strong>);
+    } else if (match[4] !== undefined) {
+      parts.push(<strong key={`${keyPrefix}-${keyIndex}`}>{match[4]}</strong>);
+    } else if (match[6] !== undefined) {
+      parts.push(<em key={`${keyPrefix}-${keyIndex}`}>{match[6]}</em>);
+    }
+
+    lastIndex = pattern.lastIndex;
+    keyIndex++;
+  }
+
+  if (lastIndex < remaining.length) {
+    parts.push(remaining.slice(lastIndex));
+  }
+
+  return parts;
+}
+
+// ── Public API ──────────────────────────────────────────────────────────────
+
+/** The result of formatting a single translation string. */
 type FormatTranslationResult = {
   element: JSX.Element;
   invalidTokens: string[];
@@ -50,132 +110,112 @@ export function formatTranslation(
 
   const lines = translation.split('\n');
 
-  const formattedLines = lines.map((line: string, lineIndex: number) => {
-    const parts: React.ReactNode[] = [];
-    let remaining = line.replace(/<name>/gi, foodbankName);
-
-    //going to look for ***text***, **text**, *text* in that order, and replace with appropriate jsx elements, we will use regex groups to identify which one it is
-
-    const pattern = /(\*\*\*(.+?)\*\*\*)|(\*\*(.+?)\*\*)|(\*(.+?)\*)/g;
-
-
-    let lastIndex = 0;
-    let match: RegExpExecArray | null;
-    let keyIndex = 0;
-
-    while ((match = pattern.exec(remaining)) !== null) {
-      if (match.index > lastIndex) {
-        parts.push(remaining.slice(lastIndex, match.index));
-      }
-
-      if (match[2] !== undefined) {
-        parts.push(
-          <strong key={`${lineIndex}-${keyIndex}`}>
-            <em>{match[2]}</em>
-          </strong>
-        );
-      } else if (match[4] !== undefined) {
-        parts.push(
-          <strong key={`${lineIndex}-${keyIndex}`}>
-            {match[4]}
-          </strong>
-        );
-      } else if (match[6] !== undefined) {
-        parts.push(
-          <em key={`${lineIndex}-${keyIndex}`}>
-            {match[6]}
-          </em>
-        );
-      }
-
-      lastIndex = pattern.lastIndex;
-      keyIndex++;
+  // Group consecutive lines of the same kind into segments so we can emit
+  // a single <ul> or <ol> per run of list lines instead of one per line.
+  type Segment = { kind: LineKind; lines: string[] };
+  const segments: Segment[] = [];
+  for (const line of lines) {
+    const kind = lineKind(line);
+    const last = segments[segments.length - 1];
+    if (last && last.kind === kind) {
+      last.lines.push(line);
+    } else {
+      segments.push({ kind, lines: [line] });
     }
+  }
 
-    if (lastIndex < remaining.length) {
-      parts.push(remaining.slice(lastIndex));
+  const rendered: React.ReactNode[] = [];
+
+  segments.forEach((seg, segIndex) => {
+    if (seg.kind === 'bullet') {
+      rendered.push(
+        <ul key={`seg-${segIndex}`}>
+          {seg.lines.map((line, lineIndex) => (
+            <li key={lineIndex}>
+              {formatInline(listContent(line), foodbankName, `${segIndex}-${lineIndex}`)}
+            </li>
+          ))}
+        </ul>
+      );
+    } else if (seg.kind === 'ordered') {
+      rendered.push(
+        <ol key={`seg-${segIndex}`}>
+          {seg.lines.map((line, lineIndex) => (
+            <li key={lineIndex}>
+              {formatInline(listContent(line), foodbankName, `${segIndex}-${lineIndex}`)}
+            </li>
+          ))}
+        </ol>
+      );
+    } else {
+      // Regular lines: emit each as a Fragment and add <br /> between them.
+      // No <br /> at segment boundaries — block list elements provide their own spacing.
+      seg.lines.forEach((line, lineIndex) => {
+        rendered.push(
+          <React.Fragment key={`${segIndex}-${lineIndex}`}>
+            {formatInline(line, foodbankName, `${segIndex}-${lineIndex}`)}
+            {lineIndex < seg.lines.length - 1 && <br />}
+          </React.Fragment>
+        );
+      });
     }
-
-    return (
-      <React.Fragment key={lineIndex}>
-        {parts}
-        {lineIndex < lines.length - 1 && <br />}
-      </React.Fragment>
-    );
   });
 
   return {
-    element: <span>{formattedLines}</span>,
+    element: <span>{rendered}</span>,
     invalidTokens,
   };
 }
-/**
-  * Validates the translation string for any invalid tokens. Currently, the only invalid tokens are "<" and ">" that are not part of a valid placeholder. 
- */
+
+// ── Validation ──────────────────────────────────────────────────────────────
+
 type TranslationValidationResult = {
   isValid: boolean;
   invalidTokens: string[];
 };
+
 /**
- * this function checks for invalid tokens
- * invalid tokens are "<" and ">" that are not part of a valid placeholder.
- * note valid placeholders are only <name> for now
- * @param raw - the raw translation string to validate
- * @return an object containing a boolean indicating whether the string is valid and an array of the invalid tokens found
+ * Validates a translation string for malformed tokens.
+ * Invalid tokens: bare "<" / ">" (not part of <name>), unclosed asterisk groups.
+ * List prefixes (/b, /l) are valid and do not need escaping.
  */
 export function validateTranslationString(raw: string): TranslationValidationResult {
   const invalidTokens: string[] = [];
 
   const protectedRaw = raw.replace(/<name>/gi, '__NAME_PLACEHOLDER__');
 
-  if (protectedRaw.includes('<')) {
-    invalidTokens.push('<');
-  }
+  if (protectedRaw.includes('<')) invalidTokens.push('<');
+  if (protectedRaw.includes('>')) invalidTokens.push('>');
 
-  if (protectedRaw.includes('>')) {
-    invalidTokens.push('>');
-  }
-  //if there are three asterisks in a row they should be closed with three asterisks
-  const tripleApostrophePattern = /\*\*\*(.+?)\*\*\*/g;
+  // *** must be closed
+  const triplePattern = /\*\*\*(.+?)\*\*\*/g;
   let match: RegExpExecArray | null;
-  while ((match = tripleApostrophePattern.exec(raw)) !== null) {
-    const content: string = match[1];
-    if (content.includes('*')) {
-      invalidTokens.push(`Invalid nested formatting in ***${content}***`);
+  while ((match = triplePattern.exec(raw)) !== null) {
+    if (match[1].includes('*')) {
+      invalidTokens.push(`Invalid nested formatting in ***${match[1]}***`);
     }
   }
-  //now remove all the triple asterisks so they dont interfere with the double and single asterisk checks
-  const withoutTriple = raw.replace(tripleApostrophePattern, '$1');
-  //check to see if there are any triple asterisks that are not closed
-  const unclosedTriplePattern = /\*\*\*(.*)/g;
-  if (unclosedTriplePattern.test(withoutTriple)) {
+  const withoutTriple = raw.replace(triplePattern, '$1');
+  if (/\*\*\*(.*)/g.test(withoutTriple)) {
     invalidTokens.push('Unclosed triple asterisks');
-    return invalidTokens.length === 0 ? { isValid: true, invalidTokens: [] } : { isValid: false, invalidTokens };
+    return { isValid: false, invalidTokens };
   }
 
-  //if there are two asterisks in a row they should be closed with two asterisks
-  const doubleApostrophePattern = /\*\*(.+?)\*\*/g;
-  while ((match = doubleApostrophePattern.exec(withoutTriple)) !== null) {
-    const content: string = match[1];
-    if (content.includes('*')) {
-      invalidTokens.push(`Invalid nested formatting in **${content}**`);
+  // ** must be closed
+  const doublePattern = /\*\*(.+?)\*\*/g;
+  while ((match = doublePattern.exec(withoutTriple)) !== null) {
+    if (match[1].includes('*')) {
+      invalidTokens.push(`Invalid nested formatting in **${match[1]}**`);
     }
   }
-  const withoutDouble = withoutTriple.replace(doubleApostrophePattern, '$1');
-  //now check if unclosed double asterisks
-  const unclosedDoublePattern = /\*\*(.*)/g;
-  if (unclosedDoublePattern.test(withoutDouble)) {
+  const withoutDouble = withoutTriple.replace(doublePattern, '$1');
+  if (/\*\*(.*)/g.test(withoutDouble)) {
     invalidTokens.push('Unclosed double asterisks');
-    return invalidTokens.length === 0 ? { isValid: true, invalidTokens: [] } : { isValid: false, invalidTokens };
+    return { isValid: false, invalidTokens };
   }
 
-  //a single asterisk must be matched — in other words there should not be an odd number of asterisks
-  //so count all asterisks
-  const asteriskPattern = /\*/g;
-  let asteriskCount = 0;
-  while ((match = asteriskPattern.exec(withoutDouble)) !== null) {
-    asteriskCount++;
-  }
+  // Remaining * count must be even
+  const asteriskCount = (withoutDouble.match(/\*/g) ?? []).length;
   if (asteriskCount % 2 !== 0) {
     invalidTokens.push('Unmatched asterisk');
   }

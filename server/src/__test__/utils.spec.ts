@@ -161,6 +161,28 @@ describe.each([
     //tries to do html injection but should break
     { translation: 'Welcome to the <span>Foodbank</span>!', expected: ``, message: 'html injection attempt with span tags', valid: false },
 
+    // /b bullet-point list items
+    { translation: '/b First item', expected: '<span><ul><li>First item</li></ul></span>', message: 'single bullet item', valid: true },
+    { translation: '/b First item\n/b Second item\n/b Third item', expected: '<span><ul><li>First item</li><li>Second item</li><li>Third item</li></ul></span>', message: 'multiple bullet items grouped into one ul', valid: true },
+    { translation: '/b **Bold item**', expected: '<span><ul><li><strong>Bold item</strong></li></ul></span>', message: 'bullet item with bold formatting', valid: true },
+    { translation: '/b Item with <name>', expected: `<span><ul><li>Item with ${aesthetics.foodbank_name}</li></ul></span>`, message: 'bullet item with name placeholder', valid: true },
+
+    // /l ordered list items
+    { translation: '/l First step', expected: '<span><ol><li>First step</li></ol></span>', message: 'single ordered list item', valid: true },
+    { translation: '/l First step\n/l Second step\n/l Third step', expected: '<span><ol><li>First step</li><li>Second step</li><li>Third step</li></ol></span>', message: 'multiple ordered items grouped into one ol', valid: true },
+    { translation: '/l *Italic step*', expected: '<span><ol><li><em>Italic step</em></li></ol></span>', message: 'ordered item with italic formatting', valid: true },
+
+    // mixed regular text and lists
+    { translation: 'Intro text\n/b Item one\n/b Item two', expected: '<span>Intro text<ul><li>Item one</li><li>Item two</li></ul></span>', message: 'regular line followed by bullet list', valid: true },
+    { translation: '/b Item one\n/b Item two\nOutro text', expected: '<span><ul><li>Item one</li><li>Item two</li></ul>Outro text</span>', message: 'bullet list followed by regular line', valid: true },
+    { translation: 'Intro\n/b Bullet\nMiddle\n/l Step\nOutro', expected: '<span>Intro<ul><li>Bullet</li></ul>Middle<ol><li>Step</li></ol>Outro</span>', message: 'interleaved regular text, bullet list, and ordered list', valid: true },
+
+    // /b and /l on adjacent lines produce separate lists
+    { translation: '/b Bullet item\n/l Ordered item', expected: '<span><ul><li>Bullet item</li></ul><ol><li>Ordered item</li></ol></span>', message: 'bullet and ordered on adjacent lines produce separate lists', valid: true },
+
+    // /b or /l mid-line (not at line start) is treated as regular text
+    { translation: 'Text with /b in the middle', expected: '<span>Text with /b in the middle</span>', message: '/b mid-line is treated as regular text', valid: true },
+
 ])('formatTranslation test', ({ translation, expected, message, valid }) => {
     if (valid) {
         test(`The test:"${message}" should format the translation correctly. The params are: translation="${translation}", expected="${expected}"`, () => {

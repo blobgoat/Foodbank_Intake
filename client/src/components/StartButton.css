@@ -11,4 +11,5 @@
   font-weight: 400;
   line-height: 0.2em;
   letter-spacing: -0.03em;
+  transform: translateY(5px);
 }

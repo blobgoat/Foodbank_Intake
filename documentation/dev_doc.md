@@ -165,6 +165,28 @@ Add a row to the table in `client/src/pages/README.md` documenting the new file,
 
 ---
 
+### Button CSS Architecture
+
+Buttons are styled through a deliberate two-layer system. Understanding this split is essential when touching any button component.
+
+**Layer 1 — `ButtonBase.css`**
+
+`client/src/components/ButtonBase.css` defines everything that is truly shared and structurally non-negotiable across all button variants: the CSS custom property references for colors, border, radius, font family/size, dimensions, cursor, flex layout, and the hover/active/disabled state rules. Every button element carries the `btn-base` class and gets all of this for free.
+
+**Layer 2 — `<ButtonName>.css`**
+
+Each button has its own CSS file (e.g. `NextButton.css`, `SkipButton.css`) that contains only what is unique to that variant — things like padding, gap between icon and label, margin, font-weight, or state overrides for special cases (the skip button's ghost/outline style is the clearest example of this).
+
+**Why the split exists**
+
+Fonts and components both require fine-tuning on their own terms. A `font-size` of `16px` in *Reddit Sans* and `16px` in *Bebas Neue* produce very different visual weights and effective heights because of differing cap heights, descenders, and metrics. Likewise, a button that is used as a primary full-width CTA (Start, Submit) has different layout needs than one used inline in a navigation row (Back, Next, Skip).
+
+The values in `foodbank_aesthetics.jsonc` set the reference sizes — they express intent. The individual CSS files are where that intent is reconciled with the reality of how a specific font and component actually render. When a font or size is changed in config, **expect to revisit the per-component CSS** and adjust padding, gap, or alignment properties so the px values genuinely match the visual result.
+
+Concretely: if you change something like `dramatic_button_font` in the aesthetics config, open `StartButton.css` and `SubmitButton.css` and verify that the label still sits comfortably inside the button at the configured height. If it clips or floats, adjust the padding or line-height in those files — not in `ButtonBase.css`.
+
+---
+
 ### Testing
 Both the client and server use **Vitest** for automated testing. To run the automated tests, `cd` into the server or client folder and run `npm run test`. For the client you can also run `npm run coverage` for a code coverage report.
 

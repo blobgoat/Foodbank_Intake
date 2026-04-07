@@ -23,6 +23,15 @@ Writers can enhance text in language-specific mutable JSONC files using the foll
 - **Bold** - Surround text with double asterisks: `**bold text**`
 - **Bold and Italic** - Surround text with triple asterisks: `***bold italic text***`
 - **Foodbank Name** - Insert the placeholder `<name>` anywhere in text to dynamically display the foodbank's configured name
+- **Bullet point** - Start a line with `/b ` (slash, b, space) to render it as a bullet-point list item: `/b Bring a valid ID`
+- **Numbered list item** - Start a line with `/l ` (slash, l, space) to render it as a numbered list item: `/l Fill out the form`
+
+Consecutive lines using the same list token (`/b` or `/l`) are automatically grouped into a single list. Switching between `/b` and `/l` on adjacent lines creates separate lists. All other formatting tokens (bold, italic, `<name>`) work normally inside list items.
+
+Example — a numbered list preceded by an intro sentence:
+```
+"Please complete these steps:\n/l Fill out the intake form\n/l Show a volunteer your confirmation"
+```
 
 ### Naming Conventions
 
@@ -69,7 +78,13 @@ The `foodbank_aesthetics` folder contains non-language branding assets:
 - **Colors** - Brand color palette
 - **Fonts** - Typography configuration
 
+### A note on visual fine-tuning
 
+The values in `foodbank_aesthetics.jsonc` control the broad strokes of how buttons and text look — colors, font choices, and reference sizes. However, **every font renders slightly differently**: a font-size of `16px` in one typeface may look noticeably larger or smaller than `16px` in another, and a button that looks perfectly balanced with one font may feel cramped or lopsided with a different one.
+
+This means that after changing a font or adjusting button sizes in the config file, **the results may need a small visual touch-up by a developer** to bring spacing, padding, and alignment back into balance. This is normal and expected — it is not a bug in the configuration.
+
+If something looks slightly off after a config change (a button label that feels too close to the edge, an icon that seems misaligned, etc.), flag it for your development team. They will make small CSS adjustments in the individual component style files to correct it.
 
 ---
 

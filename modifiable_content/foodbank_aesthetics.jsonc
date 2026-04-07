@@ -8,7 +8,7 @@
     */
     "primary_color": "247013",
     "secondary_color": "8DC75B",
-    "background_color": "FFFFFF",
+    "background_color": "F4F7F4",
     "info_text_color": "000000",
     /* Button Colors
     All buttons draw from the same color palette.
@@ -31,7 +31,7 @@
     Paths are relative to the project's public directory.
     Leave as an empty string "" to show no icon for that button.
     */
-    "button_icon_start": "",
+    "button_icon_start": "./assets/clipboard_pen.png",
     "button_icon_submit": "",
     "button_icon_back": "",
     "button_icon_next": "",
@@ -41,7 +41,7 @@
     Accepts any CSS length (e.g. "24px", "2rem", "1em").
     Useful when the icon image has extra transparent padding and needs to be scaled down.
     */
-    "button_icon_size_start": "46px",
+    "button_icon_size_start": "76px",
     "button_icon_size_submit": "46px",
     "button_icon_size_back": "1em",
     "button_icon_size_next": "1em",
