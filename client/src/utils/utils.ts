@@ -48,32 +48,32 @@ export function toPlainText(raw: string, foodbankName: string): string {
  * Converts a CSS pixel value string into a fluid clamp() expression so that
  * the element scales proportionally with the viewport instead of staying fixed.
  *
- * The px value is treated as the *designed size* at `referenceViewportWidth`
- * (set via button_scale_reference_width in foodbank_aesthetics).  At that exact
- * width the button renders at the authored px size; below it the button shrinks
- * to a minimum of `minFraction * value`; it never grows beyond the authored px.
+ * The authored px value is treated as the *minimum* size (ideal for the phone
+ * reference viewport set via button_scale_reference_width).  Above that width
+ * the element grows proportionally with the viewport, capped at
+ * `maxFraction * value` so it never becomes unreasonably large on wide screens.
  *
  * Non-px values ("auto", "1em", etc.) are returned unchanged.
  *
- * Examples (referenceViewportWidth = 1440, minFraction = 0.5):
- *   "335px"  →  "clamp(168px, 23.26vw, 335px)"
- *   "106px"  →  "clamp(53px, 7.36vw, 106px)"
- *   "120px"  →  "clamp(60px, 8.33vw, 120px)"
+ * Examples (referenceViewportWidth = 360, maxFraction = 2):
+ *   "335px"  →  "clamp(335px, 93.06vw, 670px)"
+ *   "106px"  →  "clamp(106px, 29.44vw, 212px)"
+ *   "120px"  →  "clamp(120px, 33.33vw, 240px)"
  *   "auto"   →  "auto"
  *
  * @param pxStr                  - CSS value string from the aesthetics config
- * @param referenceViewportWidth - viewport width (px) the design was authored at
- * @param minFraction            - floor as a fraction of the authored value (0–1)
+ * @param referenceViewportWidth - phone viewport width (px) the design was authored at
+ * @param maxFraction            - ceiling as a multiple of the authored value (≥1)
  */
 export function pxToFluid(
   pxStr: string,
-  referenceViewportWidth: number = 1440,
-  minFraction: number = 0.5,
+  referenceViewportWidth: number = 360,
+  maxFraction: number = 2,
 ): string {
   const match = /^(\d+(?:\.\d+)?)px$/.exec(pxStr);
   if (!match) return pxStr;                          // "auto", "1em", etc. — unchanged
   const val = parseFloat(match[1]);
   const vw = ((val / referenceViewportWidth) * 100).toFixed(2);
-  const min = Math.round(val * minFraction);
-  return `clamp(${min}px, ${vw}vw, ${val}px)`;
+  const max = Math.round(val * maxFraction);
+  return `clamp(${val}px, ${vw}vw, ${max}px)`;
 }
