@@ -9,7 +9,7 @@ const AppBar: React.FC = () => {
 
   const cssVars = {
     '--appbar-height': aesthetics.appbar_height,
-    '--appbar-background': `#${aesthetics.secondary_color}`,
+    '--appbar-background': `${aesthetics.secondary_color}`,
     '--appbar-color': `#${aesthetics.info_text_color}`,
     '--appbar-font': aesthetics.form_heading_font,
     '--appbar-font-size': aesthetics.form_heading_font_size,

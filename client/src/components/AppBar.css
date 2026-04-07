@@ -1,7 +1,7 @@
 .appbar {
   width: 100%;
   height: var(--appbar-height);
-  background-color: var(--appbar-background);
+  background-color: rgba(var(--appbar-background), 0.5);
   color: var(--appbar-color);
   display: flex;
   align-items: center;
