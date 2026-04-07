@@ -24,13 +24,13 @@ Writers can enhance text in language-specific mutable JSONC files using the foll
 - **Bold and Italic** - Surround text with triple asterisks: `***bold italic text***`
 - **Foodbank Name** - Insert the placeholder `<name>` anywhere in text to dynamically display the foodbank's configured name
 - **Bullet point** - Start a line with `/b ` (slash, b, space) to render it as a bullet-point list item: `/b Bring a valid ID`
-- **Numbered list item** - Start a line with `/l ` (slash, l, space) to render it as a numbered list item: `/l Fill out the form`
+- **Numbered list item** - Start a line with `/lN ` where N is the item's number (e.g. `/l1 Fill out the form`, `/l2 Show your confirmation`). The number is required — writing `/l` without a number immediately after will cause an error.
 
-Consecutive lines using the same list token (`/b` or `/l`) are automatically grouped into a single list. Switching between `/b` and `/l` on adjacent lines creates separate lists. All other formatting tokens (bold, italic, `<name>`) work normally inside list items.
+Consecutive lines using the same list token (`/b` or `/lN`) are automatically grouped into a single list. Switching between `/b` and `/lN` on adjacent lines creates separate lists. All other formatting tokens (bold, italic, `<name>`) work normally inside list items.
 
 Example — a numbered list preceded by an intro sentence:
 ```
-"Please complete these steps:\n/l Fill out the intake form\n/l Show a volunteer your confirmation"
+"Please complete these steps:\n/l1 Fill out the intake form\n/l2 Show a volunteer your confirmation"
 ```
 
 ### Naming Conventions
