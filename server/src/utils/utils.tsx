@@ -126,11 +126,11 @@ export function formatTranslation(
 
   const rendered: React.ReactNode[] = [];
 
-  segments.forEach((seg, segIndex) => {
+  segments.forEach((seg: Segment, segIndex: number) => {
     if (seg.kind === 'bullet') {
       rendered.push(
         <ul key={`seg-${segIndex}`}>
-          {seg.lines.map((line, lineIndex) => (
+          {seg.lines.map((line: string, lineIndex: number) => (
             <li key={lineIndex}>
               {formatInline(listContent(line), foodbankName, `${segIndex}-${lineIndex}`)}
             </li>
@@ -140,7 +140,7 @@ export function formatTranslation(
     } else if (seg.kind === 'ordered') {
       rendered.push(
         <ol key={`seg-${segIndex}`}>
-          {seg.lines.map((line, lineIndex) => (
+          {seg.lines.map((line: string, lineIndex: number) => (
             <li key={lineIndex}>
               {formatInline(listContent(line), foodbankName, `${segIndex}-${lineIndex}`)}
             </li>
@@ -150,7 +150,7 @@ export function formatTranslation(
     } else {
       // Regular lines: emit each as a Fragment and add <br /> between them.
       // No <br /> at segment boundaries — block list elements provide their own spacing.
-      seg.lines.forEach((line, lineIndex) => {
+      seg.lines.forEach((line: string, lineIndex: number) => {
         rendered.push(
           <React.Fragment key={`${segIndex}-${lineIndex}`}>
             {formatInline(line, foodbankName, `${segIndex}-${lineIndex}`)}
