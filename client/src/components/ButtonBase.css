@@ -16,6 +16,11 @@
   display: inline-flex;
   align-items: center;
   transition: background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  /* horizontal */
+  align-items: center;
+  /* vertical */
 }
 
 .btn-base:hover:not(:disabled) {
