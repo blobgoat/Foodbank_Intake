@@ -82,6 +82,7 @@
     */
     "info_font": "Reddit Sans",
     "info_font_size": "20px",
+    "info_font_large_size": "30px",
     /* dramatic_button_font is used for the Start and Submit buttons */
     "dramatic_button_font": "Bebas Neue",
     "regular_button_font": "Reddit Sans",

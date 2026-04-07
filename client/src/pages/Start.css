@@ -11,20 +11,22 @@
 }
 
 .start-text {
-    font-family: 'Reddit Sans', sans-serif;
-    font-size: 20px;
-    color: #000000;
+    font-family: var(--info-font), sans-serif;
+    font-size: var(--info-font-size);
+    color: var(--info-text-color);
     line-height: 1.6;
     text-align: center;
 }
 
-.start-textleft {
-    font-family: 'Reddit Sans', sans-serif;
-    font-size: 20px;
-    color: #000000;
+.start-textlarge {
+    font-family: var(--info-font), sans-serif;
+    font-size: var(--info-font-large-size);
+    color: var(--info-text-color);
     line-height: 1.6;
-    text-align: left;
+    text-align: center;
 }
+
+
 
 .card-container {
     display: flex;
