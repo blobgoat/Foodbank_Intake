@@ -27,14 +27,14 @@
         - No number = reusable component (e.g., buttons used on multiple pages)
     */
     /* Components*/
-    "cStartButton": "**START**",
+    "cStartButton": "START",
     "cBackButton": "Back",
     "cNextButton": "Next",
     "cSkipButton": "Skip",
     "cSubmitButton": "**SUBMIT**",
     //the <Name> tag is here to enable easier translation, Please leave it in english, 
     // but feel free to reorder it in the sentence as needed for your language
-    "cIntakeInfoHeader": "**<Name> Intake Form testing**",
+    "cIntakeInfoHeader": "**<Name> Intake Form**",
     //^^^ this is the bar at the top of the page, it is used on every page
     /* Page 1: Welcome Page */
     "p1Notice": "*Please note:*\n• Documentation is **NOT** required for service.\n• Proof of income is **NOT** required for service.\n• Proof of address is **NOT** required for service.",

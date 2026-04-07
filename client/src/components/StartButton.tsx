@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import englishText from '../../../modifiable_content/English/english_standard_text.generated.json';
 import { formatTranslations } from '../../../server/src/utils/utils';
-import { toPlainText } from '../utils/utils';
+import { toPlainText, getBaseButtonVars, pxToFluid } from '../utils/utils';
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json';
+import './ButtonBase.css';
 import './StartButton.css';
 
 interface StartButtonProps {
@@ -30,26 +31,20 @@ const StartButton: React.FC<StartButtonProps> = ({
     if (to) navigate(to);
   };
 
+  const ref = Number(aesthetics.button_scale_reference_width);
   const cssVars = {
-    '--button-color-static': `#${aesthetics.button_color_static}`,
-    '--button-color-hover': `#${aesthetics.button_color_hover}`,
-    '--button-color-active': `#${aesthetics.button_color_active}`,
-    '--button-color-disabled': `#${aesthetics.button_color_disabled}`,
-    '--button-color-text': `#${aesthetics.button_color_text}`,
-    '--button-border-color': `#${aesthetics.button_border_color}`,
-    '--button-border-width': aesthetics.button_border_width,
-    '--button-radius': aesthetics.corner_radius,
+    ...getBaseButtonVars(),
     '--button-font': aesthetics.dramatic_button_font,
-    '--button-font-size': aesthetics.button_font_size_start,
-    '--button-width': aesthetics.button_width_start,
-    '--button-height': aesthetics.button_height_start,
-    '--button-icon-size': aesthetics.button_icon_size_start,
-    '--button-border-margin': String(aesthetics.button_border_margin)
+    '--button-font-size': pxToFluid(aesthetics.button_font_size_start, ref),
+    '--button-width': pxToFluid(aesthetics.button_width_start, ref),
+    '--button-height': pxToFluid(aesthetics.button_height_start, ref),
+    '--button-icon-size': pxToFluid(aesthetics.button_icon_size_start, ref),
+    '--button-border-margin': aesthetics.button_border_margin,
   } as React.CSSProperties;
 
   return (
     <button
-      className="start-button"
+      className="btn-base start-button"
       style={cssVars}
       onClick={handleClick}
       disabled={disabled}
@@ -58,8 +53,9 @@ const StartButton: React.FC<StartButtonProps> = ({
       <span className="start-button__label">{formatTranslations(label)}</span>
       {aesthetics.button_icon_start && (
         <img
-          className="start-button__icon"
+          className="btn-base__icon"
           src={aesthetics.button_icon_start}
+          //alt text is not necessary for decorative icon
           alt=""
           aria-hidden="true"
         />
@@ -68,4 +64,4 @@ const StartButton: React.FC<StartButtonProps> = ({
   );
 };
 
-export default StartButton
+export default StartButton;

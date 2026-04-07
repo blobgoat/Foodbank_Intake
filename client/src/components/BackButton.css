@@ -1,36 +1,7 @@
+/* Unique to BackButton — everything else lives in ButtonBase.css */
+
 .back-button {
-  background-color: var(--button-color-static);
-  color: var(--button-color-text);
-  border: var(--button-border-width) solid var(--button-border-color);
-  border-radius: var(--button-radius);
-  font-family: var(--button-font), sans-serif;
-  font-size: var(--button-font-size);
-  width: var(--button-width);
-  height: var(--button-height);
-  cursor: pointer;
   padding: 0.4rem 1rem;
   margin-bottom: 1rem;
-  display: inline-flex;
-  align-items: center;
   gap: 6px;
-  transition: background-color 0.2s;
-}
-
-.back-button:hover:not(:disabled) {
-  background-color: var(--button-color-hover);
-}
-
-.back-button:active:not(:disabled) {
-  background-color: var(--button-color-active);
-}
-
-.back-button:disabled {
-  background-color: var(--button-color-disabled);
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.back-button__icon {
-  height: var(--button-icon-size);
-  width: auto;
 }

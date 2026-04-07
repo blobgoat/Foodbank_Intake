@@ -58,7 +58,13 @@
     /* Button Dimensions
     Each button has its own width and height. Accepts any CSS length (e.g. "335px", "auto").
     Use "auto" to let the button size to its content (recommended for Back, Next, Skip).
+
+    Fluid scaling: px values are treated as the designed size at button_scale_reference_width.
+    At narrower viewports the button shrinks proportionally down to 50% of the authored size.
+    Set button_scale_reference_width to match the viewport width you designed the layout for.
     */
+    "button_scale_reference_width": 337,
+    //START button
     "button_width_start": "335px",
     "button_height_start": "106px",
     "button_width_submit": "335px",

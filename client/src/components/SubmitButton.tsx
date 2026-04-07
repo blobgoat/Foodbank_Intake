@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import englishText from '../../../modifiable_content/English/english_standard_text.generated.json';
 import { formatTranslations } from '../../../server/src/utils/utils';
-import { toPlainText } from '../utils/utils';
+import { toPlainText, getBaseButtonVars, pxToFluid } from '../utils/utils';
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json';
+import './ButtonBase.css';
 import './SubmitButton.css';
 
 interface SubmitButtonProps {
@@ -30,25 +31,19 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
     if (to) navigate(to);
   };
 
+  const ref = Number(aesthetics.button_scale_reference_width);
   const cssVars = {
-    '--button-color-static': `#${aesthetics.button_color_static}`,
-    '--button-color-hover': `#${aesthetics.button_color_hover}`,
-    '--button-color-active': `#${aesthetics.button_color_active}`,
-    '--button-color-disabled': `#${aesthetics.button_color_disabled}`,
-    '--button-color-text': `#${aesthetics.button_color_text}`,
-    '--button-border-color': `#${aesthetics.button_border_color}`,
-    '--button-border-width': aesthetics.button_border_width,
-    '--button-radius': aesthetics.corner_radius,
+    ...getBaseButtonVars(),
     '--button-font': aesthetics.dramatic_button_font,
-    '--button-font-size': aesthetics.button_font_size_submit,
-    '--button-width': aesthetics.button_width_submit,
-    '--button-height': aesthetics.button_height_submit,
-    '--button-icon-size': aesthetics.button_icon_size_submit,
+    '--button-font-size': pxToFluid(aesthetics.button_font_size_submit, ref),
+    '--button-width': pxToFluid(aesthetics.button_width_submit, ref),
+    '--button-height': pxToFluid(aesthetics.button_height_submit, ref),
+    '--button-icon-size': pxToFluid(aesthetics.button_icon_size_submit, ref),
   } as React.CSSProperties;
 
   return (
     <button
-      className="submit-button"
+      className="btn-base submit-button"
       style={cssVars}
       onClick={handleClick}
       disabled={disabled}
@@ -57,7 +52,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       <span className="submit-button__label">{formatTranslations(label)}</span>
       {aesthetics.button_icon_submit && (
         <img
-          className="submit-button__icon"
+          className="btn-base__icon"
           src={aesthetics.button_icon_submit}
           alt=""
           aria-hidden="true"

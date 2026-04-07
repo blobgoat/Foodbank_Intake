@@ -1,36 +1,7 @@
+/* Unique to NextButton — everything else lives in ButtonBase.css */
+
 .next-button {
-  background-color: var(--button-color-static);
-  color: var(--button-color-text);
-  border: var(--button-border-width) solid var(--button-border-color);
-  border-radius: var(--button-radius);
-  font-family: var(--button-font), sans-serif;
-  font-size: var(--button-font-size);
-  width: var(--button-width);
-  height: var(--button-height);
   font-weight: 600;
-  cursor: pointer;
   padding: 0.6rem 1.6rem;
-  display: inline-flex;
-  align-items: center;
   gap: 8px;
-  transition: background-color 0.2s;
-}
-
-.next-button:hover:not(:disabled) {
-  background-color: var(--button-color-hover);
-}
-
-.next-button:active:not(:disabled) {
-  background-color: var(--button-color-active);
-}
-
-.next-button:disabled {
-  background-color: var(--button-color-disabled);
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.next-button__icon {
-  height: var(--button-icon-size);
-  width: auto;
 }

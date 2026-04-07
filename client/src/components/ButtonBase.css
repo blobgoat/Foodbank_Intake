@@ -1,0 +1,39 @@
+/* ── Shared base styles for all button variants ───────────────────────
+   Apply the .btn-base class alongside each button's own class.
+   Per-button CSS files only need to declare what's unique to that variant.
+   ──────────────────────────────────────────────────────────────────── */
+
+.btn-base {
+  background-color: var(--button-color-static);
+  color: var(--button-color-text);
+  border: var(--button-border-width) solid var(--button-border-color);
+  border-radius: var(--button-radius);
+  font-family: var(--button-font) !important;
+  font-size: var(--button-font-size);
+  width: var(--button-width);
+  height: var(--button-height);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.btn-base:hover:not(:disabled) {
+  background-color: var(--button-color-hover);
+}
+
+.btn-base:active:not(:disabled) {
+  background-color: var(--button-color-active);
+}
+
+.btn-base:disabled {
+  background-color: var(--button-color-disabled);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Icon sub-element — shared across all button variants */
+.btn-base__icon {
+  height: var(--button-icon-size);
+  width: auto;
+}

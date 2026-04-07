@@ -1,21 +1,16 @@
+/* Unique to SkipButton (ghost/outline style) — shared rules in ButtonBase.css */
+
 .skip-button {
   background-color: transparent;
   color: var(--button-color-static);
-  border: var(--button-border-width) solid var(--button-border-color);
-  border-radius: var(--button-radius);
-  font-family: var(--button-font), sans-serif;
-  font-size: var(--button-font-size);
-  width: var(--button-width);
-  height: var(--button-height);
   font-weight: 500;
-  cursor: pointer;
   padding: 0.6rem 1.6rem;
-  display: inline-flex;
-  align-items: center;
   gap: 8px;
+  /* Extends the base transition to also animate color and border */
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
+/* Ghost button fills on hover — overrides base hover */
 .skip-button:hover:not(:disabled) {
   background-color: var(--button-color-static);
   color: var(--button-color-text);
@@ -27,13 +22,10 @@
   border-color: var(--button-color-hover);
 }
 
+/* Ghost disabled — no background, just dim the text and border */
 .skip-button:disabled {
+  background-color: transparent;
   color: var(--button-color-disabled);
   border-color: var(--button-color-disabled);
-  cursor: not-allowed;
-}
-
-.skip-button__icon {
-  height: var(--button-icon-size);
-  width: auto;
+  opacity: 1; /* override base 0.5 — color change carries the visual weight */
 }
