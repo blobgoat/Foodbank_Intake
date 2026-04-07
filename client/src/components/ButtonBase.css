@@ -32,7 +32,7 @@
   cursor: not-allowed;
 }
 
-/* Icon sub-element — shared across all button variants */
+/* Icon sub-element — sometimes shared across all button variants */
 .btn-base__icon {
   height: var(--button-icon-size);
   width: auto;
