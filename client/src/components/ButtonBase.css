@@ -15,7 +15,7 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, transform 0.15s;
   display: flex;
   justify-content: center;
   /* horizontal */
@@ -25,6 +25,7 @@
 
 .btn-base:hover:not(:disabled) {
   background-color: var(--button-color-hover);
+  transform: scale(1.05);
 }
 
 .btn-base:active:not(:disabled) {
@@ -37,8 +38,8 @@
   cursor: not-allowed;
 }
 
-/* Icon sub-element — sometimes shared across all button variants */
+/* Icon sub-element — sometimes used, sometimes not, depending on the button variant */
 .btn-base__icon {
+  width: var(--button-icon-size);
   height: var(--button-icon-size);
-  width: auto;
 }
