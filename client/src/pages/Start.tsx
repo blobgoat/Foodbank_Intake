@@ -6,6 +6,7 @@ import englishText from '../../../modifiable_content/English/english_standard_te
 import FoodbankLogo from '../../../modifiable_content/Images/FoodbankLogo.png';
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json';
 import './Start.css';
+import './reusableUI.css';
 
 const Start: React.FC = (): JSX.Element => {
   const cssVars = {
