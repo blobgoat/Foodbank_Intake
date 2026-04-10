@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parse } from 'jsonc-parser';
+import { parse, ParseError } from 'jsonc-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,7 +10,8 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '../../..');
 const targetRoot = path.join(projectRoot, 'modifiable_content');
 
-function walk(dir) {
+// Finds all jsonc files within a specified directory.
+function walk(dir: string): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   const results = [];
 
@@ -27,9 +28,9 @@ function walk(dir) {
   return results;
 }
 
-function convertJsoncFile(inputPath) {
+function convertJsoncFile(inputPath: string) {
   const raw = fs.readFileSync(inputPath, 'utf-8');
-  const errors = [];
+  const errors: ParseError[] = [];
   const parsed = parse(raw, errors);
 
   if (errors.length > 0) {
