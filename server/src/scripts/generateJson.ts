@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parse } from 'jsonc-parser';
+import { parse, type ParseError } from 'jsonc-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,7 +10,8 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '../../..');
 const targetRoot = path.join(projectRoot, 'modifiable_content');
 
-function walk(dir) {
+// Finds all jsonc files within a specified directory.
+function walk(dir: string): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   const results = [];
 
@@ -27,14 +28,14 @@ function walk(dir) {
   return results;
 }
 
-function convertJsoncFile(inputPath) {
+function convertJsoncFile(inputPath: string): void {
   const raw = fs.readFileSync(inputPath, 'utf-8');
-  const errors = [];
-  const parsed = parse(raw, errors);
+  const errors: ParseError[] = [];
+  const parsed: unknown = parse(raw, errors);
 
   if (errors.length > 0) {
     const formattedErrors = errors
-      .map(err => `offset ${err.offset}, length ${err.length}, error code ${err.error}`)
+      .map((err: ParseError) => `offset ${err.offset}, length ${err.length}, error code ${err.error}`)
       .join('; ');
     throw new Error(`Failed to parse ${inputPath}: ${formattedErrors}`);
   }
@@ -46,7 +47,7 @@ function convertJsoncFile(inputPath) {
   console.log(`Generated: ${path.relative(projectRoot, outputPath)}`);
 }
 
-function main() {
+function main(): void {
   if (!fs.existsSync(targetRoot)) {
     throw new Error(`Directory not found: ${targetRoot}`);
   }
