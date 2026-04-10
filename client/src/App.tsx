@@ -4,6 +4,7 @@ import type { CSSProperties } from 'react';
 // import NavBar from './components/NavBar';
 // import Home from './pages/Home';
 import FoodbankIntakeScreen from './pages/Start';
+import AccountHolder from './pages/AccountHolder';
 import AppBar from './components/AppBar';
 import './App.css';
 import aesthetics from '../../modifiable_content/foodbank_aesthetics.generated.json';
@@ -24,6 +25,7 @@ function App(): JSX.Element {
           <Routes>
             {/* <Route path="/" element={<Home />} /> */}
             <Route path="/" element={<FoodbankIntakeScreen />} />
+            <Route path="/account-holder" element={<AccountHolder />} />
 
           </Routes>
         </main>
