@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parse, ParseError } from 'jsonc-parser';
+import { parse, type ParseError } from 'jsonc-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,14 +28,14 @@ function walk(dir: string): string[] {
   return results;
 }
 
-function convertJsoncFile(inputPath: string) {
+function convertJsoncFile(inputPath: string): void {
   const raw = fs.readFileSync(inputPath, 'utf-8');
   const errors: ParseError[] = [];
-  const parsed = parse(raw, errors);
+  const parsed: unknown = parse(raw, errors);
 
   if (errors.length > 0) {
     const formattedErrors = errors
-      .map(err => `offset ${err.offset}, length ${err.length}, error code ${err.error}`)
+      .map((err: ParseError) => `offset ${err.offset}, length ${err.length}, error code ${err.error}`)
       .join('; ');
     throw new Error(`Failed to parse ${inputPath}: ${formattedErrors}`);
   }
@@ -43,10 +43,11 @@ function convertJsoncFile(inputPath: string) {
   const outputPath = inputPath.replace(/\.jsonc$/i, '.generated.json');
   fs.writeFileSync(outputPath, JSON.stringify(parsed, null, 2) + '\n', 'utf-8');
 
+  // eslint-disable-next-line no-undef
   console.log(`Generated: ${path.relative(projectRoot, outputPath)}`);
 }
 
-function main() {
+function main(): void {
   if (!fs.existsSync(targetRoot)) {
     throw new Error(`Directory not found: ${targetRoot}`);
   }
@@ -54,6 +55,7 @@ function main() {
   const jsoncFiles = walk(targetRoot);
 
   if (jsoncFiles.length === 0) {
+    // eslint-disable-next-line no-undef
     console.log('No .jsonc files found.');
     return;
   }
@@ -62,6 +64,7 @@ function main() {
     convertJsoncFile(file);
   }
 
+  // eslint-disable-next-line no-undef
   console.log(`Done. Converted ${jsoncFiles.length} file(s).`);
 }
 

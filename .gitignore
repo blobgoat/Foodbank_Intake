@@ -6,6 +6,7 @@ node_modules/
 # Build artifacts
 server/build/
 server/coverage/
+client/dist/
 #used for the sake of testing, but not actually used in production code. Why its outside the build file.
 generated/
 modifiable_content/**/*.generated.json

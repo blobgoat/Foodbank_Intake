@@ -2,31 +2,98 @@
     /* Brand Specific*/
     "foodbank_name": "Lynwood Foodbank",
     "foodbank_logo": "C:../images/FoodbankLogo.png",
-    /* Color Palette 
-    Note: primary color is not currently being used, as everything in the front is buttons
-    also saturation and hue is only adjustable in the codebase >look in components
+    /* Color Palette
+    Note: primary_color and secondary_color are reserved for future use in non-button UI elements.
+    Saturation and hue are only adjustable in the codebase — see components/ for usage.
     */
     "primary_color": "247013",
-    "secondary_color": "8DC75B",
-    "background_color": "FFFFFF",
+    //these are rgb values same as "8DC75B"
+    "secondary_color": "144, 199, 91",
+    //these are rgb values same as #F4F7F4
+    "background_color": "244, 247, 244",
     "info_text_color": "000000",
-    /* Button colors */
-    "button_static_color": "247013",
-    "disabled_button_color": "247013",
-    "hover_button_color": "1C5310",
-    "clicked_button_color": "0F2D08",
-    "button_text_color": "F5F5F5",
-    /* Typography */
-    //Font size will up scale with the screen size, px
-    //values are there to indicate size, or min size on phone screen
+    /* Button Colors
+    All buttons draw from the same color palette.
+    Values are hex strings without the leading '#'.
+    */
+    "button_color_static": "247013",
+    "button_color_hover": "1C5310",
+    "button_color_active": "0F2D08",
+    "button_color_disabled": "AAAAAA",
+    "button_color_text": "F5F5F5",
+    /* Button Border
+    button_border_width accepts any CSS length (e.g. "0px", "1px", "1.5px").
+    Set button_border_width to "0px" to hide the border.
+    The Skip button uses these to render its outlined/ghost style.
+    */
+    "button_border_color": "247013",
+    "button_border_width": "1.5px",
+    "button_border_margin": "5px",
+    /* Button Icons
+    Paths are relative to the project's public directory.
+    Leave as an empty string "" to show no icon for that button.
+    */
+    "button_icon_start": "./assets/clipboard_pen.png",
+    "button_icon_submit": "",
+    "button_icon_back": "",
+    "button_icon_next": "",
+    "button_icon_skip": "",
+    /* Button Icon Sizes
+    Controls the rendered height of each button's icon image; width scales automatically.
+    Accepts any CSS length (e.g. "24px", "2rem", "1em").
+    Useful when the icon image has extra transparent padding and needs to be scaled down.
+    */
+    "button_icon_size_start": "60px",
+    "button_icon_size_submit": "46px",
+    "button_icon_size_back": "1em",
+    "button_icon_size_next": "1em",
+    "button_icon_size_skip": "1em",
+    /* Button Font Sizes
+    Each button has its own font size. Accepts any CSS length (e.g. "16px", "1rem").
+    Start and Submit use the dramatic font at a large size by default.
+    */
+    "button_font_size_start": "80px",
+    "button_font_size_submit": "120px",
+    "button_font_size_back": "15px",
+    "button_font_size_next": "16px",
+    "button_font_size_skip": "16px",
+    /* Button Dimensions
+    Each button has its own width and height. Accepts any CSS length (e.g. "335px", "auto").
+    Use "auto" to let the button size to its content (recommended for Back, Next, Skip).
+
+    Fluid scaling: px values are treated as the designed size at button_scale_reference_width.
+    At narrower viewports the button shrinks proportionally down to 50% of the authored size.
+    Set button_scale_reference_width to match the viewport width you designed the layout for.
+    */
+    "button_scale_reference_width": 360,
+    //START button
+    "button_width_start": "250px",
+    "button_height_start": "106px",
+    "button_width_submit": "335px",
+    "button_height_submit": "106px",
+    "button_width_back": "auto",
+    "button_height_back": "auto",
+    "button_width_next": "auto",
+    "button_height_next": "auto",
+    "button_width_skip": "auto",
+    "button_height_skip": "auto",
+    /* Typography
+    Font sizes use px as the minimum size on phone screens and scale up with larger viewports.
+    */
     "info_font": "Reddit Sans",
     "info_font_size": "20px",
-    /* used for start and submit buttons*/
+    "info_font_large_size": "30px",
+    /* dramatic_button_font is used for the Start and Submit buttons */
     "dramatic_button_font": "Bebas Neue",
     "regular_button_font": "Reddit Sans",
-    "start_button_font_size": "120px",
     "form_heading_font": "Lato",
     "form_heading_font_size": "18px",
+    /* App Bar
+    The app bar spans the full screen width and sits at the top of every page.
+    Its text content is pulled from the cIntakeInfoHeader translation key.
+    background uses secondary_color, text uses info_text_color, font uses form_heading_font.
+    */
+    "appbar_height": "40px",
     /* Other */
     "corner_radius": "8px"
 }

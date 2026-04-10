@@ -5,10 +5,10 @@ import { formatTranslations } from '../../../server/src/utils/utils';
 import { toPlainText, getBaseButtonVars, pxToFluid } from '../utils/utils';
 import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json';
 import './ButtonBase.css';
-import './BackButton.css';
+import './StartButton.css';
 
-interface BackButtonProps {
-  /** Path to navigate to. Defaults to the previous page in browser history. */
+interface StartButtonProps {
+  /** Path to navigate to when clicked. */
   to?: string;
   /** Custom click handler. If provided alongside `to`, this runs first. */
   onClick?: () => void;
@@ -17,50 +17,51 @@ interface BackButtonProps {
   disabled?: boolean;
 }
 
-const BackButton: React.FC<BackButtonProps> = ({
+const StartButton: React.FC<StartButtonProps> = ({
   to,
   onClick,
-  label = `← ${englishText.cBackButton}`,
+  label = englishText.cStartButton,
   disabled = false,
-}: BackButtonProps) => {
+}: StartButtonProps) => {
   const navigate = useNavigate();
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     if (disabled) return;
     if (onClick) onClick();
     if (to) navigate(to);
-    else navigate(-1);
   };
 
   const ref = Number(aesthetics.button_scale_reference_width);
   const cssVars = {
     ...getBaseButtonVars(),
-    '--button-font': aesthetics.regular_button_font,
-    '--button-font-size': pxToFluid(aesthetics.button_font_size_back, ref),
-    '--button-width': pxToFluid(aesthetics.button_width_back, ref),
-    '--button-height': pxToFluid(aesthetics.button_height_back, ref),
-    '--button-icon-size': pxToFluid(aesthetics.button_icon_size_back, ref),
+    '--button-font': aesthetics.dramatic_button_font,
+    '--button-font-size': pxToFluid(aesthetics.button_font_size_start, ref),
+    '--button-width': pxToFluid(aesthetics.button_width_start, ref),
+    '--button-height': pxToFluid(aesthetics.button_height_start, ref),
+    '--button-icon-size': pxToFluid(aesthetics.button_icon_size_start, ref),
+    '--button-border-margin': aesthetics.button_border_margin,
   } as React.CSSProperties;
 
   return (
     <button
-      className="btn-base back-button"
+      className="btn-base start-button"
       style={cssVars}
       onClick={handleClick}
       disabled={disabled}
       aria-label={toPlainText(label, aesthetics.foodbank_name)}
     >
-      {aesthetics.button_icon_back && (
+      <span className="start-button__label">{formatTranslations(label)}</span>
+      {aesthetics.button_icon_start && (
         <img
           className="btn-base__icon"
-          src={aesthetics.button_icon_back}
+          src={aesthetics.button_icon_start}
+          //alt text is not necessary for decorative icon
           alt=""
           aria-hidden="true"
         />
       )}
-      {formatTranslations(label)}
     </button>
   );
 };
 
-export default BackButton;
+export default StartButton;

@@ -8,11 +8,12 @@ import path from "path";
 import fs from 'fs';
 import { validateKeyNaming } from '../utils/testUtils';
 
+const __dirname: string = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([a-z]:)/i, '$1'));
 //test to see that a folder exists in modifiable content for each supported language
 describe('Test that there is a folder with relevant files for each supported language', () => {
 
 
-    translationAPI.supportedLanguages.forEach((language) => {
+    translationAPI.supportedLanguages.forEach((language: string) => {
         const lowercaseLanguage = language.toLocaleLowerCase();
         test(`Folder for ${language} should exist`, () => {
             const folderPath = path.join(__dirname, `../../../modifiable_content/${language}`);
@@ -40,8 +41,8 @@ describe('Test that there is a folder with relevant files for each supported lan
         });
 
         test(`valid keys in standard translation file for ${language} jsonc`, () => {
-            const standardtranslationFilePath = path.join(__dirname, `../../../modifiable_content/${language}/${lowercaseLanguage}_standard_text.jsonc`);
-            const content = parse(fs.readFileSync(standardtranslationFilePath, 'utf8'));
+            const standardtranslationFilePath: string = path.join(__dirname, `../../../modifiable_content/${language}/${lowercaseLanguage}_standard_text.jsonc`);
+            const content: unknown = parse(fs.readFileSync(standardtranslationFilePath, 'utf8'));
             validateKeyNaming(content, `modifiable_content/${language}/${lowercaseLanguage}_standard_text.jsonc standard translation file`);
         });
 
@@ -49,9 +50,9 @@ describe('Test that there is a folder with relevant files for each supported lan
         test(`Folder for ${language} should only have the expected files`, () => {
             const expectedFiles = [`${lowercaseLanguage}_mutable_text.jsonc`, `${lowercaseLanguage}_standard_text.jsonc`, `${lowercaseLanguage}_mutable_text.generated.json`, `${lowercaseLanguage}_standard_text.generated.json`];
             const folderPath = path.join(__dirname, `../../../modifiable_content/${language}`);
-            const actualFiles = fs.readdirSync(folderPath).filter(file => fs.statSync(path.join(folderPath, file)).isFile());
-            const extraFiles = actualFiles.filter(file => !expectedFiles.includes(file));
-            const missingFiles = expectedFiles.filter(file => !actualFiles.includes(file));
+            const actualFiles = fs.readdirSync(folderPath).filter((file: string) => fs.statSync(path.join(folderPath, file)).isFile());
+            const extraFiles = actualFiles.filter((file: string) => !expectedFiles.includes(file));
+            const missingFiles = expectedFiles.filter((file: string) => !actualFiles.includes(file));
             expect(extraFiles, `Extra files found in ${language} folder: ${extraFiles.join(', ')}`).toEqual([]);
             expect(missingFiles, `Missing files in ${language} folder: ${missingFiles.join(', ')}`).toEqual([]);
         });
@@ -65,18 +66,18 @@ describe('Test that there is a folder with relevant files for each supported lan
 
         const entries = fs.readdirSync(path.join(__dirname, '../../../modifiable_content'), { withFileTypes: true });
         const actualFiles = entries
-            .filter(entry => entry.isFile())
-            .map(entry => entry.name);
+            .filter((entry: fs.Dirent) => entry.isFile())
+            .map((entry: fs.Dirent) => entry.name);
 
         const actualFolders = entries
-            .filter(entry => entry.isDirectory())
-            .map(entry => entry.name);
+            .filter((entry: fs.Dirent) => entry.isDirectory())
+            .map((entry: fs.Dirent) => entry.name);
 
-        const extraFiles = actualFiles.filter(file => !expectedFiles.includes(file));
-        const missingFiles = expectedFiles.filter(file => !actualFiles.includes(file));
+        const extraFiles = actualFiles.filter((file: string) => !expectedFiles.includes(file));
+        const missingFiles = expectedFiles.filter((file: string) => !actualFiles.includes(file));
 
-        const extraFolders = actualFolders.filter(folder => !expectedFolders.includes(folder));
-        const missingFolders = expectedFolders.filter(folder => !actualFolders.includes(folder));
+        const extraFolders = actualFolders.filter((folder: string) => !expectedFolders.includes(folder));
+        const missingFolders = expectedFolders.filter((folder: string) => !actualFolders.includes(folder));
         expect(extraFiles, `Extra files found in modifiable content: ${extraFiles.join(', ')}`).toEqual([]);
         expect(extraFolders, `Extra folders found in modifiable content: ${extraFolders.join(', ')}`).toEqual([]);
         expect(missingFiles, `Missing files in modifiable content: ${missingFiles.join(', ')}`).toEqual([]);
@@ -86,39 +87,38 @@ describe('Test that there is a folder with relevant files for each supported lan
 
 
 describe('Test that the keys of the standard translation file is correct', () => {
-    translationAPI.supportedLanguages.forEach((language) => {
+    translationAPI.supportedLanguages.forEach((language: string) => {
         test(`Standard translation file for ${language} should have correct keys`, () => {
             //other test already checks that the file is parsable json, so we can just use it cause the test is already try catching it
 
             const standardtranslationFilePath = path.join(__dirname, `../../../modifiable_content/${language}/${language.toLocaleLowerCase()}_standard_text.jsonc`);
-            const content = parse(fs.readFileSync(standardtranslationFilePath, 'utf8')); //just to make sure its valid json before we require it, otherwise the error messages will be very confusing
+            const content: unknown = parse(fs.readFileSync(standardtranslationFilePath, 'utf8')); //just to make sure its valid json before we require it, otherwise the error messages will be very confusing
             const expectedKeys = Object.keys(BLANK_STANDARD_TEXT_TRANSLATION);
-            const actualKeys = Object.keys(content);
-            const missingKeys = expectedKeys.filter(key => !actualKeys.includes(key));
-            const extraKeys = actualKeys.filter(key => !expectedKeys.includes(key));
-            if (missingKeys.length > 0 || extraKeys.length > 0) {
-                console.error(`Missing keys in ${language} standard translation: ${missingKeys.join(', ')}`);
-                console.error(`Extra keys in ${language} standard translation: ${extraKeys.join(', ')}`);
+            if (typeof content !== 'object' || content === null) {
+                throw new Error(`Content of ${language} standard translation is not a valid object`);
             }
-            expect(actualKeys.sort(), `Keys in ${language} standard translation are not matching`).toEqual(expectedKeys.sort());
+
+            const actualKeys = Object.keys(content);
+            const missingKeys = expectedKeys.filter((key: string) => !actualKeys.includes(key));
+            const extraKeys = actualKeys.filter((key: string) => !expectedKeys.includes(key));
+            expect(actualKeys.sort(), `Keys in ${language} standard translation are not matching. Missing: ${missingKeys.join(', ')} Extra: ${extraKeys.join(', ')}`).toEqual(expectedKeys.sort());
         });
     });
 });
 
 describe('Test that the keys of the mutable translation file is correct', () => {
-    translationAPI.supportedLanguages.forEach((language) => {
+    translationAPI.supportedLanguages.forEach((language: string) => {
         test(`Mutable translation file for ${language} should have correct keys`, () => {
             const mutabletranslationFilePath = path.join(__dirname, `../../../modifiable_content/${language}/${language.toLocaleLowerCase()}_mutable_text.jsonc`);
-            const content = parse(fs.readFileSync(mutabletranslationFilePath, 'utf8'));
+            const content: unknown = parse(fs.readFileSync(mutabletranslationFilePath, 'utf8'));
+            if (typeof content !== 'object' || content === null) {
+                throw new Error(`Content of ${language} mutable translation is not a valid object`);
+            }
             const expectedKeys = Object.keys(BLANK_MUTABLE_TEXT_TRANSLATION);
             const actualKeys = Object.keys(content);
-            const missingKeys = expectedKeys.filter(key => !actualKeys.includes(key));
-            const extraKeys = actualKeys.filter(key => !expectedKeys.includes(key));
-            if (missingKeys.length > 0 || extraKeys.length > 0) {
-                console.error(`Missing keys in ${language} mutable translation: ${missingKeys.join(', ')}`);
-                console.error(`Extra keys in ${language} mutable translation: ${extraKeys.join(', ')}`);
-            }
-            expect(actualKeys.sort(), `Keys in ${language} mutable translation are not matching`).toEqual(expectedKeys.sort());
+            const missingKeys = expectedKeys.filter((key: string) => !actualKeys.includes(key));
+            const extraKeys = actualKeys.filter((key: string) => !expectedKeys.includes(key));
+            expect(actualKeys.sort(), `Keys in ${language} mutable translation are not matching. Missing: ${missingKeys.join(', ')} Extra: ${extraKeys.join(', ')}`).toEqual(expectedKeys.sort());
         });
     });
 });

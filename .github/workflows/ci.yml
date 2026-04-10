@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 24
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -45,6 +45,14 @@ jobs:
       - name: Run Server Tests
         working-directory: ./server
         run: npm run test:generate
+
+      - name: install linting dependencies
+        working-directory: ./
+        run: npm ci
+
+      - name: Run Linting
+        working-directory: ./
+        run: npm run lint
 
       - name: Build Server
         working-directory: ./server

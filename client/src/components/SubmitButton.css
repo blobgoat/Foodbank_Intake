@@ -1,0 +1,12 @@
+/* Unique to SubmitButton — everything else lives in ButtonBase.css */
+
+.submit-button {
+  justify-content: center;
+  gap: 18px;
+}
+
+.submit-button__label {
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 1px;
+}

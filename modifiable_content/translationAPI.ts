@@ -1,39 +1,43 @@
+import englishMutableText from './English/english_mutable_text.generated.json';
+import englishStandardText from './English/english_standard_text.generated.json';
+import spanishMutableText from './Spanish/spanish_mutable_text.generated.json';
+import spanishStandardText from './Spanish/spanish_standard_text.generated.json';
+
+type SupportedLanguage = 'English' | 'Spanish';
+
+const mutableTranslations: Record<SupportedLanguage, Record<string, string>> = {
+    English: englishMutableText,
+    Spanish: spanishMutableText,
+};
+
+const standardTranslations: Record<SupportedLanguage, Record<string, string>> = {
+    English: englishStandardText,
+    Spanish: spanishStandardText,
+};
+
 export const translationAPI: {
     supportedLanguages: readonly ['English', 'Spanish'];
-    currentLanguage: 'English' | 'Spanish';
+    currentLanguage: SupportedLanguage;
     getMutableTranslation(): Record<string, string>;
     getStandardTranslation(): Record<string, string>;
-    changeLanguage(newLanguage: 'English' | 'Spanish'): void;
+    changeLanguage(newLanguage: SupportedLanguage): void;
 } = {
     supportedLanguages: ['English', 'Spanish'] as const,
     currentLanguage: 'English',
 
     getMutableTranslation(): Record<string, string> {
-        const fileReadingLanguage = this.currentLanguage.toLowerCase();
-        try {
-            const mutableTranslation = require(`./${fileReadingLanguage}/${fileReadingLanguage}_mutable_text.ts`);
-            return mutableTranslation;
-        } catch (error) {
-            console.error(`Error loading mutable translation for language ${fileReadingLanguage}:`, error);
-            throw new Error(`Could not load mutable translation for language ${fileReadingLanguage}`);
-        }
+        return mutableTranslations[this.currentLanguage];
     },
 
     getStandardTranslation(): Record<string, string> {
-        const fileReadingLanguage = this.currentLanguage.toLowerCase();
-        try {
-            const standardTranslation = require(`./${fileReadingLanguage}/${fileReadingLanguage}_standard_text.ts`);
-            return standardTranslation;
-        } catch (error) {
-            console.error(`Error loading standard translation for language ${fileReadingLanguage}:`, error);
-            throw new Error(`Could not load standard translation for language ${fileReadingLanguage}`);
-        }
+        return standardTranslations[this.currentLanguage];
     },
 
-    changeLanguage(newLanguage: typeof translationAPI.supportedLanguages[number]): void {
+    changeLanguage(newLanguage: SupportedLanguage): void {
         if (!this.supportedLanguages.includes(newLanguage)) {
             throw new Error(`Unsupported language: ${newLanguage}`);
         }
         this.currentLanguage = newLanguage;
-    }
+    },
+
 } as const;

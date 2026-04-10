@@ -21,11 +21,21 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "resolveJsonModule": true
   },
   "include": [
-    "src"
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "../../../modifiable_content",
+    /* just the utils file for translation formatting */
+    "../../../server/src/utils/translationUtils.ts",
+    "vite-env.d.ts",
+    "vite.config.ts",
   ]
 }

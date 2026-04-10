@@ -1,0 +1,16 @@
+.appbar {
+  width: 100%;
+  height: var(--appbar-height);
+  background-color: rgba(var(--appbar-background), 0.5);
+  color: var(--appbar-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.appbar__title {
+  font-family: var(--appbar-font), sans-serif;
+  font-size: var(--appbar-font-size);
+  font-weight: 700;
+}

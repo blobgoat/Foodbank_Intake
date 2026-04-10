@@ -1,4 +1,4 @@
-import { Project, Type } from "ts-morph";
+import { Project, type Type } from "ts-morph";
 import path from "path";
 import fs from "fs";
 
@@ -79,8 +79,11 @@ const standardTextTranslation = generateBlankObjectCodeFromInterface(
 fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 fs.writeFileSync(outputPath, mutableTextTranslation, "utf8");
 
+// eslint-disable-next-line no-undef
 console.log(`Generated ${outputPath}`);
 fs.writeFileSync(path.resolve("generated/blankDisabledContent.ts"), disabledContent, "utf8");
+// eslint-disable-next-line no-undef
 console.log(`Generated ${path.resolve("generated/blankDisabledContent.ts")}`);
 fs.writeFileSync(path.resolve("generated/blankStandardTextTranslation.ts"), standardTextTranslation, "utf8");
+// eslint-disable-next-line no-undef
 console.log(`Generated ${path.resolve("generated/blankStandardTextTranslation.ts")}`);

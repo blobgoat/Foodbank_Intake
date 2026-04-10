@@ -1,0 +1,15 @@
+/* Unique to StartButton — everything else lives in ButtonBase.css */
+
+.start-button {
+  justify-content: center;
+  gap: 18px;
+  margin: var(--button-border-margin);
+  padding: var(--button-border-margin);
+}
+
+.start-button__label {
+  font-weight: 400;
+  line-height: 0.2em;
+  letter-spacing: -0.03em;
+  transform: translateY(5px);
+}
