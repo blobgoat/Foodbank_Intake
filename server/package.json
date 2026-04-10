@@ -13,7 +13,7 @@
     "test:generate": "npm run generate:blank-object && npm run test",
     "test": "npm run generate:json && vitest",
     "generate:blank-object": "tsx src/scripts/generateBlankObject.ts",
-    "generate:json": "tsx src/scripts/generateJson.js",
+    "generate:json": "tsx src/scripts/generateJson.ts",
     "generate": "npm run generate:blank-object && npm run generate:json",
     "typecheck:test": "tsc -p tsconfig.test.json --noEmit"
   },
