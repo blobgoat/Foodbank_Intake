@@ -39,6 +39,8 @@ const SkipButton: React.FC<SkipButtonProps> = ({
     '--button-width': pxToFluid(aesthetics.button_width_skip, ref),
     '--button-height': pxToFluid(aesthetics.button_height_skip, ref),
     '--button-icon-size': pxToFluid(aesthetics.button_icon_size_skip, ref),
+    '--button-radius': aesthetics.corner_radius,
+    '--button-color-text': `#${aesthetics.button_color_text}`,
   } as React.CSSProperties;
 
   return (

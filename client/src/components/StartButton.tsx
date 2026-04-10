@@ -48,7 +48,7 @@ const StartButton: React.FC<StartButtonProps> = ({
       style={cssVars}
       onClick={handleClick}
       disabled={disabled}
-      aria-label={toPlainText(label, aesthetics.foodbank_name)}
+      aria-label={toPlainText(label)}
     >
       <span className="start-button__label">{formatTranslations(label)}</span>
       {aesthetics.button_icon_start && (

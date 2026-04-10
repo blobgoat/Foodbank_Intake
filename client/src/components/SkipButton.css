@@ -4,28 +4,8 @@
   background-color: transparent;
   color: var(--button-color-static);
   font-weight: 500;
-  padding: 0.6rem 1.6rem;
+  padding: 0;
   gap: 8px;
   /* Extends the base transition to also animate color and border */
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-}
-
-/* Ghost button fills on hover — overrides base hover */
-.skip-button:hover:not(:disabled) {
-  background-color: var(--button-color-static);
-  color: var(--button-color-text);
-}
-
-.skip-button:active:not(:disabled) {
-  background-color: var(--button-color-hover);
-  color: var(--button-color-text);
-  border-color: var(--button-color-hover);
-}
-
-/* Ghost disabled — no background, just dim the text and border */
-.skip-button:disabled {
-  background-color: transparent;
-  color: var(--button-color-disabled);
-  border-color: var(--button-color-disabled);
-  opacity: 1; /* override base 0.5 — color change carries the visual weight */
 }

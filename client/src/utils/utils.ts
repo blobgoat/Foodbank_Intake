@@ -37,7 +37,7 @@ export function getBaseButtonVars(): Record<string, string> {
   };
 }
 
-export function toPlainText(raw: string, foodbankName: string): string {
+export function toPlainText(raw: string, foodbankName: string = aesthetics.foodbank_name): string {
   return raw
     .replace(/\*+/g, '')
     .replace(/<name>/gi, foodbankName)

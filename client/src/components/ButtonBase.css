@@ -8,7 +8,7 @@
   color: var(--button-color-text);
   border: var(--button-border-width) solid var(--button-border-color);
   border-radius: var(--button-radius);
-  font-family: var(--button-font) !important;
+  font-family: var(--button-font), sans-serif;
   font-size: var(--button-font-size);
   width: var(--button-width);
   height: var(--button-height);

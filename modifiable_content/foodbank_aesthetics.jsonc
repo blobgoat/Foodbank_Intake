@@ -19,7 +19,7 @@
     "button_color_static": "247013",
     "button_color_hover": "1C5310",
     "button_color_active": "0F2D08",
-    "button_color_disabled": "AAAAAA",
+    "button_color_disabled": "247013",
     "button_color_text": "F5F5F5",
     /* Button Border
     button_border_width accepts any CSS length (e.g. "0px", "1px", "1.5px").
@@ -65,7 +65,7 @@
     At narrower viewports the button shrinks proportionally down to 50% of the authored size.
     Set button_scale_reference_width to match the viewport width you designed the layout for.
     */
-    "button_scale_reference_width": 360,
+    "button_scale_reference_width": 375,
     //START button
     "button_width_start": "250px",
     "button_height_start": "106px",
@@ -75,8 +75,8 @@
     "button_height_back": "auto",
     "button_width_next": "auto",
     "button_height_next": "auto",
-    "button_width_skip": "auto",
-    "button_height_skip": "auto",
+    "button_width_skip": "114px",
+    "button_height_skip": "47px",
     /* Typography
     Font sizes use px as the minimum size on phone screens and scale up with larger viewports.
     */
@@ -88,6 +88,8 @@
     "regular_button_font": "Reddit Sans",
     "form_heading_font": "Lato",
     "form_heading_font_size": "18px",
+    "page_heading_font": "Young Serif",
+    "page_heading_font_size": "22px",
     /* App Bar
     The app bar spans the full screen width and sits at the top of every page.
     Its text content is pulled from the cIntakeInfoHeader translation key.
@@ -95,5 +97,6 @@
     */
     "appbar_height": "40px",
     /* Other */
-    "corner_radius": "8px"
+    "corner_radius": "8px",
+    "asterisk_color": "#FF383C"
 }

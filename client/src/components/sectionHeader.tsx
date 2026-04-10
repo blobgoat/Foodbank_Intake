@@ -2,6 +2,8 @@ import React from 'react';
 import './SectionHeader.css';
 import type { JSX } from "react/jsx-dev-runtime";
 import SkipButton from './SkipButton';
+import aesthetics from '../../../modifiable_content/foodbank_aesthetics.generated.json';
+import { formatTranslations } from '../../../server/src/utils/utils';
 
 interface SectionHeaderProps {
     title: string;
@@ -16,19 +18,28 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     title,
     required = false,
 }: SectionHeaderProps): JSX.Element => {
-    return (
-        <div className="section-header">
-            <div className="section-header__top">
-                <div className="section-header__title-wrap">
-                    <h2 className="section-header__title">
-                        {title}
-                        {required && <span className="section-header__required"> *</span>}
-                    </h2>
-                </div>
+    const cssVars = {
+        '--header-color': '#000000',
+        '--required-color': String(aesthetics.asterisk_color),
+        '--skip-note-color': '#666666',
+        '--progress-dot-color': '#1e90ff',
+        '--header_font': String(aesthetics.page_heading_font),
+        '--header_font_size': String(aesthetics.page_heading_font_size),
+    } as React.CSSProperties;
 
-                <div className="section-header__skip-area">
-                    <SkipButton disabled={true} />
-                </div>
+    return (
+        <div className="section-header" style={cssVars}>
+            <div className="section-header__top">
+                <span className="section-header__title-wrap">
+                    <span className="section-header__title">
+                        {formatTranslations(title)}
+                    </span>
+                    {required && <span className="section-header__required"> *</span>}
+                </span>
+                <SkipButton disabled={true} />
+
+
+
             </div>
 
             <div className="section-header__progress-row">
