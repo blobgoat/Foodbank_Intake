@@ -36,11 +36,19 @@ export function getBaseButtonVars(): Record<string, string> {
     '--button-radius': aesthetics.corner_radius,
   };
 }
-
+/**
+ * this function is used to convert raw translation strings that may contain formatting markers
+ * into a plain text string suitable for aria-labels
+ * @param raw @type(String) 
+ * @param foodbankName @type(String) optional, defaults to aesthetics.foodbank_name 
+ * @returns 
+ */
 export function toPlainText(raw: string, foodbankName: string = aesthetics.foodbank_name): string {
   return raw
     .replace(/\*+/g, '')
     .replace(/<name>/gi, foodbankName)
+    //removes everything with / followed by non-space characters, this gets all the markers for bullets and ordered lists
+    .replace(/\/\S*/g, '')
     .trim();
 }
 
