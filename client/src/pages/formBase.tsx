@@ -10,7 +10,7 @@ const FormBase: React.FC<PageAPI> = (page: PageAPI): React.ReactElement => {
     //     '--info-text': page.infoText,
     // };
     return (
-        <SectionHeader title={page.headerName} required={true} />
+        <SectionHeader title={page.headerName} progress_percent={page.loadbarPercentage} subheader={page.subheader} notice={page.notice} required={true} />
     );
 
 };

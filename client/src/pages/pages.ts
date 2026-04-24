@@ -6,6 +6,8 @@ export interface PageAPI {
     headerName: string,
     loadbarPercentage: number,
     infoText: string,
+    subheader: string,
+    notice: string,
 }
 
 export const Pages: {

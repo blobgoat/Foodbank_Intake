@@ -13,7 +13,7 @@ export interface StandardTextTranslation {
     p1Preamble: string;
     //page 2
     p2Title: string;
-    p2AccountHolderNotice: string;
+    p2Notice: string;
     p2AccountHolderQuestionSubheading: string;
     p2Q1FirstName: string;
     p2Q2LastName: string;

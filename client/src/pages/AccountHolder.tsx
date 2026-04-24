@@ -6,8 +6,10 @@ import type { ReactNode } from "react";
 
 export const AccountHolderAPI: PageAPI = {
     headerName: translationAPI.getStandardTranslation().p2Title,
-    loadbarPercentage: 0,
+    loadbarPercentage: 5,
     infoText: translationAPI.getStandardTranslation().p2AccountHolderNotice,
+    subheader: translationAPI.getStandardTranslation().p2AccountHolderQuestionSubheading,
+    notice: translationAPI.getStandardTranslation().p2Notice,
 };
 
 const AccountHolder: React.FC = (): React.ReactNode | Promise<ReactNode> => {

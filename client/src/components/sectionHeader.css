@@ -16,12 +16,13 @@
     flex: 1;
     min-width: 0;
     margin: 0;
+    justify-content: center;
     color: var(--header-color);
     font-weight: 500;
-    font-family: var(--header_font), serif;
-    font-size: var(--header_font_size);
+    font-family: var(--header-font), serif;
+    font-size: var(--header-font-size);
     line-height: 1.1;
-    display: inline-block;
+    display: flex;
 }
 
 .section-header__title .fmt {
@@ -60,16 +61,72 @@
 }
 
 .section-header__progress-row {
+    display: flex;
     margin-top: 8px;
     padding-left: 2px;
 }
 
-.section-header__progress-dot {
-    display: inline-block;
-    width: 8px;
+.section-header__progress-bar {
+    display: flex;
+    width: 100%;
     height: 8px;
+    background: #5d5858;
+    /* grey background (track) */
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.section-header__progress-fill {
+    height: 100%;
+    width: var(--progress-percentage, 0%);
+    /* dynamic */
     background: var(--progress-dot-color);
-    border-radius: 50%;
+    /* your existing color */
+    border-radius: inherit;
+    transition: width 0.3s ease;
+}
+
+.section-divider {
+    height: 1px;
+    background: #000000;
+    margin: 20px 0;
+}
+
+.section-header__info__text {
+    font-family: var(--notice-font), serif;
+    font-size: var(--notice-font-size);
+    align-items: center;
+    display: flex;
+    text-align: center;
+
+}
+
+.section-header__info__icon {
+    width: var(--notice-icon-size);
+    height: var(--notice-icon-size);
+
+    background-image: var(--icon-notice);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    flex-shrink: 0;
+}
+
+.section-header__info__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.section-header__subheader {
+    font-family: var(--subheader-font), serif;
+    font-size: var(--subheader-font-size);
+    line-height: 1.1;
+    color: var(--header-color);
+    text-align: center;
+    text-decoration: underline;
 }
 
 /* 

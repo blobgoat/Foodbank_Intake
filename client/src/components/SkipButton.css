@@ -2,7 +2,7 @@
 
 .skip-button {
   background-color: transparent;
-  color: var(--button-color-static);
+  /* color: var(--button-color-static); */
   font-weight: 500;
   padding: 0;
   gap: 8px;

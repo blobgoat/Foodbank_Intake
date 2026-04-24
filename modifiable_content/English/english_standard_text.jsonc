@@ -42,7 +42,7 @@
     "p1Preamble": "If you are struggling to access food please fill out intake form:",
     /* Page 2: Account Holder Info */
     "p2Title": "Account Holder",
-    "p2AccountHolderNotice": "Input the person primarily responsible for this intake and all pickups for your group/family (or just yourself). This can be any adult, or a case manager with permission.",
+    "p2Notice": "Input the person primarily responsible for this intake and all pickups for your group/family (or just yourself). This can be any adult, or a case manager with permission.",
     "p2AccountHolderQuestionSubheading": "Fill out The Below Questions:",
     "p2Q1FirstName": "Account Holder's First Name:",
     "p2Q2LastName": "Account Holder's Last Name:",

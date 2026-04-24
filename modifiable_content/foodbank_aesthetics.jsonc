@@ -38,6 +38,7 @@
     "button_icon_back": "",
     "button_icon_next": "",
     "button_icon_skip": "",
+    "icon_notice": "./assets/info_icon.png",
     /* Button Icon Sizes
     Controls the rendered height of each button's icon image; width scales automatically.
     Accepts any CSS length (e.g. "24px", "2rem", "1em").
@@ -48,6 +49,7 @@
     "button_icon_size_back": "1em",
     "button_icon_size_next": "1em",
     "button_icon_size_skip": "1em",
+    "notice_icon_size": "48px",
     /* Button Font Sizes
     Each button has its own font size. Accepts any CSS length (e.g. "16px", "1rem").
     Start and Submit use the dramatic font at a large size by default.
@@ -81,6 +83,8 @@
     Font sizes use px as the minimum size on phone screens and scale up with larger viewports.
     */
     "info_font": "Reddit Sans",
+    "notice_font": "Reddit Sans",
+    "notice_font_size": "14px",
     "info_font_size": "20px",
     "info_font_large_size": "30px",
     /* dramatic_button_font is used for the Start and Submit buttons */

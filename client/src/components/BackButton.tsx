@@ -32,7 +32,7 @@ const BackButton: React.FC<BackButtonProps> = ({
     else navigate(-1);
   };
 
-  const ref = Number(aesthetics.button_scale_reference_width);
+  const ref: number = Number(aesthetics.button_scale_reference_width);
   const cssVars = {
     ...getBaseButtonVars(),
     '--button-font': aesthetics.regular_button_font,
