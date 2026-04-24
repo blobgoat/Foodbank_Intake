@@ -27,6 +27,8 @@ export interface MutableTextTranslation {
 
 export interface DisabledQuestionsAndPages {
     p1WelcomePage: boolean;
-    //currently only one page, but this can be expanded as we add more pages and questions
+    p2Q1FirstName: boolean;
+    p2Q2LastName: boolean;
+    p2Q3DOB: boolean;
 }
 

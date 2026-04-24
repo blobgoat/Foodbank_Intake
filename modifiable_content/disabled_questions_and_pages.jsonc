@@ -1,3 +1,6 @@
 {
-    "p1WelcomePage": true
+    "p1WelcomePage": true,
+    "p2Q1FirstName": false,
+    "p2Q2LastName": false,
+    "p2Q3DOB": false
 }

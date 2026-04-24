@@ -1,0 +1,39 @@
+.account-holder-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-question {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-question__label {
+    font-family: var(--form-heading-font, Lato, serif);
+    font-size: var(--form-heading-font-size, 18px);
+    font-weight: 600;
+    color: #000000;
+}
+
+.form-question__input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    font-family: var(--form-heading-font, Lato, serif);
+    font-size: var(--form-heading-font-size, 16px);
+    color: #000000;
+    background: #ffffff;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-question__input:focus {
+    border-color: #247013;
+}
