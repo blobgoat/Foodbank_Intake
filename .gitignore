@@ -33,3 +33,6 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+#for logging agent use
+prompt.txt
