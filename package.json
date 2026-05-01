@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "generate": "cd server && npm run generate"
   },
   "devDependencies": {
     "@types/node": "^25.5.2",
