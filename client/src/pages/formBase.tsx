@@ -1,7 +1,7 @@
 // import type { JSX } from "react/jsx-dev-runtime";
 import type React from "react";
 import type { PageAPI } from "./pages";
-import SectionHeader from "../components/sectionHeader";
+import SectionHeader from "../components/SectionHeader";
 
 const FormBase: React.FC<PageAPI> = (page: PageAPI): React.ReactElement => {
     // const cssVars = {
