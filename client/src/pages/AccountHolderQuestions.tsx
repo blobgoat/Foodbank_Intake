@@ -31,7 +31,7 @@ const AccountHolderQuestions: React.FC = () => {
                     </label>
                     <input
                         id="ah-first-name"
-                        className="questions__input"
+                        className="questions__input full-width"
                         type="text"
                         value={firstName}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
@@ -47,7 +47,7 @@ const AccountHolderQuestions: React.FC = () => {
                     </label>
                     <input
                         id="ah-last-name"
-                        className="questions__input"
+                        className="questions__input full-width"
                         type="text"
                         value={lastName}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
@@ -63,7 +63,7 @@ const AccountHolderQuestions: React.FC = () => {
                     </label>
                     <input
                         id="ah-dob"
-                        className="questions__input"
+                        className="questions__input full-width"
                         type="date"
                         value={dob ?? ''}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDob(e.target.value)}

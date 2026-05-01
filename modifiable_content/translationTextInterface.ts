@@ -18,6 +18,9 @@ export interface StandardTextTranslation {
     p2Q1FirstName: string;
     p2Q2LastName: string;
     p2Q3DOB: string;
+    p2Q1FirstNamePlaceholder: string;
+    p2Q2LastNamePlaceholder: string;
+    p2Q3DOBPlaceholder: string;
 }
 
 export interface MutableTextTranslation {

@@ -153,25 +153,18 @@ describe.each([
     name: 'Last Name input is full-width',
     labelPattern: /account holder.*last name/i,
   },
+  {
+    name: 'Date of Birth input is full-width',
+    labelPattern: /account holder.*date of birth/i,
+  },
+
 ])('Full-width layout — $name', ({ labelPattern }) => {
   test('input has full-width styling', () => {
     renderAccountHolder();
-    const label = screen.getByText(labelPattern);
-    const container = label.closest('div') || label.parentElement;
-    const input = container?.querySelector('input');
-    expect(input).not.toBeNull();
-    // Check for width: 100% in inline style or a CSS class that implies full-width
-    const style = input?.style.width;
-    const className = input?.className || '';
-    const hasFullWidth =
-      style === '100%' ||
-      className.includes('full-width') ||
-      className.includes('w-full') ||
-      // Also accept if the input's parent wrapper has width 100%
-      input?.parentElement?.style.width === '100%' ||
-      input?.parentElement?.className.includes('full-width') ||
-      input?.parentElement?.className.includes('w-full');
-    expect(hasFullWidth).toBe(true);
+
+    const input = screen.getByLabelText(labelPattern) as HTMLInputElement;
+
+    expect(input.className.includes('full-width')).toBe(true);
   });
 });
 
