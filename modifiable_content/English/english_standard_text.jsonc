@@ -43,8 +43,11 @@
     /* Page 2: Account Holder Info */
     "p2Title": "Account Holder",
     "p2Notice": "Input the person primarily responsible for this intake and all pickups for your group/family (or just yourself). This can be any adult, or a case manager with permission.",
-    "p2AccountHolderQuestionSubheading": "Fill out The Below Questions:",
+    "p2AccountHolderQuestionSubheading": "Fill Out The Below Questions:",
     "p2Q1FirstName": "Account Holder's First Name:",
+    "p2Q1FirstNamePlaceholder": "Enter first name",
     "p2Q2LastName": "Account Holder's Last Name:",
-    "p2Q3DOB": "Account Holder's Date of Birth:"
+    "p2Q2LastNamePlaceholder": "Enter last name",
+    "p2Q3DOB": "Account Holder's Date of Birth:",
+    "p2Q3DOBPlaceholder": "MM/DD/YYYY"
 }

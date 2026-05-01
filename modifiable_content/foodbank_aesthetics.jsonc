@@ -12,6 +12,8 @@
     //these are rgb values same as #F4F7F4
     "background_color": "244, 247, 244",
     "info_text_color": "000000",
+    "question_text_color": "6F7482",
+    "textbox_fill": "F8FAFC",
     /* Button Colors
     All buttons draw from the same color palette.
     Values are hex strings without the leading '#'.
@@ -94,6 +96,7 @@
     "form_heading_font_size": "18px",
     "page_heading_font": "Young Serif",
     "page_heading_font_size": "22px",
+    "questions_font_size": "16px",
     /* App Bar
     The app bar spans the full screen width and sits at the top of every page.
     Its text content is pulled from the cIntakeInfoHeader translation key.
