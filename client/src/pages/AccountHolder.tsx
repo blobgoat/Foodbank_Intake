@@ -1,6 +1,7 @@
 import type { PageAPI } from "./pages";
 import { translationAPI } from "../../../modifiable_content/translationAPI";
 import formBase from "./formBase";
+import AccountHolderQuestions from "./AccountHolderQuestions";
 import type React from "react";
 import type { ReactNode } from "react";
 
@@ -13,7 +14,12 @@ export const AccountHolderAPI: PageAPI = {
 };
 
 const AccountHolder: React.FC = (): React.ReactNode | Promise<ReactNode> => {
-    return formBase(AccountHolderAPI);
+    return (
+        <>
+            {formBase(AccountHolderAPI)}
+            <AccountHolderQuestions />
+        </>
+    );
 }
 
 export default AccountHolder;
